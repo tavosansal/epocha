@@ -39,9 +39,13 @@
             <div class="inner cover">
                 <h1 class="cover-heading">Cover Page</h1>
                 <p class="lead">This is an awesome tool</p>
-                <p class="lead">
-                    Hello World
-                </p>
+                {{#link-to 'robot' class="btn btn-default"}}
+                    Robot
+                {{/link-to}}
+                {{#link-to 'human' class="btn btn-default"}}
+                    Human
+                {{/link-to}}
+                {{liquid-outlet}}
             </div>
             <div class="mastfoot">
                 <div class="inner">

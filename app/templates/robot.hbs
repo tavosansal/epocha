@@ -4,8 +4,11 @@
             Back
         {{/link-to}}
         <form>
-            <input type="text" class="form-control" placeholder="Robot Date">
-            <button type="submit" class="btn btn-primary">Get Date</button>
+            {{input type="text" class="form-control" placeholder="Robot Date" value=value}}
+            <button type="submit" class="btn btn-primary" {{action "getDate"}}>Get Date</button>
         </form>
+        {{#if humanDate}}
+            {{input type="text" class="form-control" value=humanDate}}
+        {{/if}}
     </div>
 </div>
