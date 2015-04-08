@@ -4,11 +4,13 @@
             Back
         {{/link-to}}
         <form>
-            {{input type="text" class="form-control" placeholder="Robot Date" value=value}}
-            <button type="submit" class="btn btn-primary" {{action "getDate"}}>Get Date</button>
+            {{input id="robot" type="text" class="form-control" placeholder="Robot Date" value=currentTime disabled=isNotPaused}}
+            {{input type="text" class="form-control" value=humanDate disabled=isNotPaused}}
+            {{#if isNotPaused}}
+                <button type="submit" class="btn btn-primary" {{action "pause"}}>||</button>
+            {{else}}
+                <button type="submit" class="btn btn-primary" {{action "play"}}>></button>
+            {{/if}}
         </form>
-        {{#if humanDate}}
-            {{input type="text" class="form-control" value=humanDate}}
-        {{/if}}
     </div>
 </div>
