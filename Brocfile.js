@@ -20,7 +20,6 @@ var app = new EmberApp();
 //Bootstrap
 app.import('bower_components/bootstrap/dist/css/bootstrap.css');
 app.import('bower_components/bootstrap/dist/css/bootstrap.css.map');
-//app.import('app/styles/cover.css');
 app.import('bower_components/bootstrap/dist/js/bootstrap.js');
 
 //Moment
