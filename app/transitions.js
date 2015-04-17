@@ -2,15 +2,22 @@ export default function() {
     this.transition(
         this.fromRoute('application'),
         this.toRoute('robot'),
-        this.use('toUp'),
-        this.reverse('toDown')
+        this.use('fade'),
+        this.reverse('fade')
     );
 
     this.transition(
         this.fromRoute('application'),
         this.toRoute('human'),
-        this.use('toRight'),
-        this.reverse('toLeft')
+        this.use('fade'),
+        this.reverse('fade')
+    );
+
+    this.transition(
+        this.fromRoute('about'),
+        this.toRoute('robot'),
+        this.use('fade'),
+        this.reverse('fade')
     );
 
     this.transition(

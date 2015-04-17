@@ -1,6 +1,5 @@
 import Ember from 'ember';
 /* global moment */
-/* global $ */
 
 export default Ember.Controller.extend({
     updateTime: function() {
