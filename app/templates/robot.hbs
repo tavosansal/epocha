@@ -1,6 +1,7 @@
 <div class="jumbotron">
     <div class="container">
         <h1>Epocha</h1>
+        <p>Easy epoch to date converter</p>
         <form>
             <div class="form-group">
                 <label>Current Robot Date/Time (Unix)</label>
@@ -10,11 +11,11 @@
                 <label>Current Human Date/Time (Local)</label>
                 {{input type="text" class="form-control" value=humanDate disabled="disabled"}}
             </div>
-            {{#if isNotPaused}}
-                <button type="submit" class="btn btn-primary" {{action "pause"}}>||</button>
+            {{#liquid-if isNotPaused class="button-area"}}
+                <button type="submit" class="btn btn-danger btn-lg" {{action "pause"}}><span class="glyphicon glyphicon-pause"></span></button>
             {{else}}
-                <button type="submit" class="btn btn-primary" {{action "play"}}>></button>
-            {{/if}}
+                <button type="submit" class="btn btn-success btn-lg" {{action "play"}}><span class="glyphicon glyphicon-play"></span></button>
+            {{/liquid-if}}
         </form>
     </div>
 </div>
