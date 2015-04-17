@@ -6,6 +6,7 @@ var Router = Ember.Router.extend({
 });
 
 export default Router.map(function() {
-    this.resource('robot', function() {});
-    this.resource('human', function() {});
+  this.resource('robot', function() {});
+  this.resource('human', function() {});
+  this.route('about');
 });
