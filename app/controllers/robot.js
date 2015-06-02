@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
         return moment.unix(this.get('currentTime'));
     }.property('currentTime'),
 
-    humanDate: function() {
+    humanDateUtc: function() {
         return moment.unix(this.get('currentTime')).utc();
     }.property('currentTime'),
 
