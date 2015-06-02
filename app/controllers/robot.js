@@ -20,7 +20,11 @@ export default Ember.Controller.extend({
         return moment.unix(this.get('currentTime'));
     }.property('currentTime'),
 
-    actions: {
+    humanDate: function() {
+        return moment.unix(this.get('currentTime')).utc();
+    }.property('currentTime')
+
+        actions: {
         pause: function() {
             Ember.run.cancel(this.get('updateClock'));
             this.set('isNotPaused', false);
