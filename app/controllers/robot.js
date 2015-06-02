@@ -22,9 +22,9 @@ export default Ember.Controller.extend({
 
     humanDate: function() {
         return moment.unix(this.get('currentTime')).utc();
-    }.property('currentTime')
+    }.property('currentTime'),
 
-        actions: {
+    actions: {
         pause: function() {
             Ember.run.cancel(this.get('updateClock'));
             this.set('isNotPaused', false);
