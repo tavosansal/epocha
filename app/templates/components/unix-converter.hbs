@@ -1,0 +1,19 @@
+<form>
+    <div class="form-group">
+        <label>Current Robot Date/Time (Unix)</label>
+        {{input id="robot" type="text" focus-in="pause" class="form-control" placeholder="Robot Date" value=currentTime}}
+    </div>
+    <div class="form-group">
+        <label>Current Human Date/Time (Local)</label>
+        {{input type="text" class="form-control" value=humanDate disabled="disabled"}}
+    </div>
+    <div class="form-group">
+        <label>Current Human Date/Time (UTC)</label>
+        {{input type="text" class="form-control" value=humanDateUtc disabled="disabled"}}
+    </div>
+    {{#liquid-if isNotPaused class="button-area"}}
+        <button type="submit" class="btn btn-danger btn-lg" {{action "pause"}}><span class="glyphicon glyphicon-pause"></span></button>
+    {{else}}
+        <button type="submit" class="btn btn-success btn-lg" {{action "play"}}><span class="glyphicon glyphicon-play"></span></button>
+    {{/liquid-if}}
+</form>
