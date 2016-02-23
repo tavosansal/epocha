@@ -1,0 +1,10 @@
+{{!-- <select class="form-control">
+    {{#each timezones as |timezone|}}
+      <option value={{timezone.offset}}>{{timezone.value}} - {{timezone.text}} - {{timezone.abbr}}</option>
+    {{/each}}
+</select> --}}
+
+
+{{#power-select options=timezones selected=timezoneSelected onchange=(action (mut timezoneSelected)) searchField="value" as |timezone|}}
+  {{timezone.value}} - {{timezone.text}} - {{timezone.abbr}}
+{{/power-select}}
