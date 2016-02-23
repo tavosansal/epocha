@@ -1,14 +1,14 @@
 <form>
     <div class="form-group">
-        <label>Current Robot Date/Time (Unix)</label>
+        <label>Current Unix Timestamp</label>
         {{input id="robot" type="text" focus-in="pause" class="form-control" placeholder="Robot Date" value=currentTime}}
     </div>
     <div class="form-group">
-        <label>Current Human Date/Time (Local)</label>
+        <label>Current Date and Time (Local)</label>
         {{input type="text" class="form-control" value=humanDate disabled="disabled"}}
     </div>
     <div class="form-group">
-        <label>Current Human Date/Time (UTC)</label>
+        <label>Current Date and Time (UTC)</label>
         {{input type="text" class="form-control" value=humanDateUtc disabled="disabled"}}
     </div>
     {{#liquid-if isNotPaused class="button-area"}}
