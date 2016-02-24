@@ -32,6 +32,9 @@ export default Ember.Component.extend({
     play: function() {
       this.set('isNotPaused', true);
       this.updateTime();
+    },
+    timezoneChanged: function(timezone) {
+      this.set('timezone', timezone);
     }
   }
 });

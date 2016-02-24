@@ -4,8 +4,8 @@
         {{input id="robot" type="text" focus-in="pause" class="form-control" placeholder="Type a timestamp (ex. 1456249984)" value=currentTime}}
     </div>
     <div class="form-group">
-        <label>Current Date and Time (Local)</label>
-        {{timezone-select}}
+        <label>Current Date and Time ({{timezone.name}})</label>
+        {{timezone-select onChange=(action 'timezoneChanged') timezoneSelected=timezone}}
         {{input type="text" class="form-control" value=humanDate disabled="disabled"}}
     </div>
     <div class="form-group">
