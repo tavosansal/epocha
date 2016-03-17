@@ -1,28 +1,27 @@
 import Ember from 'ember';
 import moment from 'moment';
+import _ from 'lodash/lodash';
 
 export default Ember.Component.extend({
-  updateTime: function() {
-    var _this = this;
-
-    // Update the time every second.
-    var updateClock = Ember.run.later(function() {
-      _this.set('currentTime', moment().unix());
-      _this.updateTime();
-    }, 1000);
-    this.set('updateClock', updateClock);
-  }.on('init'),
-
-  currentTime: moment().unix(),
+  classNames: ['col-md-4'],
   isNotPaused: true,
+  currentTime: Ember.inject.service(),
+  currentTimestamp: Ember.computed.alias('currentTime.currentTime'),
+  timezones: Ember.computed.alias('currentTime.timezones'),
 
-  humanDate: function() {
-    return moment.unix(this.get('currentTime'));
-  }.property('currentTime'),
+  init() {
+    this._super(...arguments);
 
-  humanDateUtc: function() {
-    return moment.unix(this.get('currentTime')).utc();
-  }.property('currentTime'),
+    this.set('currentTimezone', this.get('currentTime.currentTimezone'));
+  },
+
+  humanDate: Ember.computed('currentTimestamp', function() {
+    return moment.unix(this.get('currentTimestamp')).tz(this.get('currentTimezone.name'));
+  }),
+
+  humanDateUtc: Ember.computed('currentTimestamp', function() {
+    return moment.unix(this.get('currentTimestamp')).utc();
+  }),
 
   actions: {
     pause: function() {
@@ -34,7 +33,7 @@ export default Ember.Component.extend({
       this.updateTime();
     },
     timezoneChanged: function(timezone) {
-      this.set('timezone', timezone);
+      this.set('currentTimezone', timezone);
     }
   }
 });

@@ -2,6 +2,19 @@
     <div class="container">
         <h1>Epocha</h1>
         <p>Easy epoch to date converter</p>
-        {{unix-converter}}
+
+        <div class="container-fluid">
+          <div class="row">
+            {{#each model as |converter|}}
+                {{unix-converter}}
+            {{/each}}
+
+
+            <form>
+              <button {{action 'addConverter'}}>Add New</button>
+            </form>
+
+          </div>
+        </div>
     </div>
 </div>

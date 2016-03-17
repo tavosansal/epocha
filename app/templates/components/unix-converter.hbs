@@ -1,11 +1,14 @@
 <form>
     <div class="form-group">
-        <label>Current Unix Timestamp</label>
-        {{input id="robot" type="text" focus-in="pause" class="form-control" placeholder="Type a timestamp (ex. 1456249984)" value=currentTime}}
+      {{input type="text" value=label placeholder="Add Label" class="form-control"}}
     </div>
     <div class="form-group">
-        <label>Current Date and Time ({{timezone.name}})</label>
-        {{timezone-select onChange=(action 'timezoneChanged') timezoneSelected=timezone}}
+        <label>Current Unix Timestamp</label>
+        {{input id="robot" type="text" focus-in="pause" class="form-control" placeholder="Type a timestamp (ex. 1456249984)" value=currentTimestamp}}
+    </div>
+    <div class="form-group">
+        <label>Current Date and Time ({{currentTimezone.name}})</label>
+        {{timezone-select onChange=(action 'timezoneChanged') timezones=timezones timezoneSelected=currentTimezone}}
         {{input type="text" class="form-control" value=humanDate disabled="disabled"}}
     </div>
     <div class="form-group">
