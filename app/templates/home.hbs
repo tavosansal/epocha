@@ -6,7 +6,7 @@
         <div class="container-fluid">
           <div class="row">
             {{#each model as |converter|}}
-                {{unix-converter}}
+                {{unix-converter converter=converter}}
             {{/each}}
 
 

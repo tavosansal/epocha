@@ -10,7 +10,7 @@ export default Ember.Route.extend({
 
   actions: {
     addConverter() {
-      var last = this.get('converters.lastObject');
+      let last = this.get('converters.lastObject');
       last++;
 
       this.get('converters').pushObject(last);

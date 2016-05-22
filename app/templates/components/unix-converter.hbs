@@ -4,7 +4,11 @@
     </div>
     <div class="form-group">
         <label>Current Unix Timestamp</label>
-        {{input id="robot" type="text" focus-in="pause" class="form-control" placeholder="Type a timestamp (ex. 1456249984)" value=currentTimestamp}}
+        {{input value=currentTimeDisplay id="robot" 
+        type="text" 
+        focus-in="pause" 
+        class="form-control" 
+        placeholder="Type a timestamp (ex. 1456249984)"}}
     </div>
     <div class="form-group">
         <label>Current Date and Time ({{currentTimezone.name}})</label>
