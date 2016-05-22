@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import moment from 'moment';
-import _ from 'lodash/lodash';
 
 export default Ember.Component.extend({
   classNames: ['col-md-4'],
@@ -8,39 +7,59 @@ export default Ember.Component.extend({
   currentTime: Ember.inject.service(),
   currentTimestamp: Ember.computed.alias('currentTime.currentTime'),
   timezones: Ember.computed.alias('currentTime.timezones'),
-
-  currentTimeDisplay: Ember.computed('currentTimestamp', 'pausedTime', function() {
-    return this.get('pausedTime') || this.get('currentTimestamp');
-  }),
-
+  isPaused: Ember.computed.not('isNotPaused'),
+  
   init() {
     this._super(...arguments);
 
     this.set('currentTimezone', this.get('currentTime.currentTimezone'));
   },
 
-  humanDate: Ember.computed('currentTimestamp', 'pausedTime', function() {
-    let timestampToConvert = this.get('pausedTime') || this.get('currentTimestamp');
+  currentTimeDisplay: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function() {
+    if (this.get('isPaused')) {
+      return this.get('pausedTime');
+    }
+    return this.get('currentTimestamp');
+  }),
+
+  humanDate: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function() {
+    let timestampToConvert;
+    if (this.get('isPaused')) {
+      timestampToConvert = this.get('pausedTime');
+    } else {
+      timestampToConvert = this.get('currentTimestamp'); 
+    }
     return moment.unix(timestampToConvert).tz(this.get('currentTimezone.name'));
   }),
 
-  humanDateUtc: Ember.computed('currentTimestamp', 'pausedTime', function() {
-    let timestampToConvert = this.get('pausedTime') || this.get('currentTimestamp');
+  humanDateUtc: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function() {
+    let timestampToConvert;
+    if (this.get('isPaused')) {
+      timestampToConvert = this.get('pausedTime');
+    } else {
+      timestampToConvert = this.get('currentTimestamp');
+    }
     return moment.unix(timestampToConvert).utc();
   }),
 
   actions: {
-    pause: function() {
-      let pausedTime = this.get('currentTimestamp');
+    pause() {
+      let pausedTime = this.get('pausedTime') || this.get('currentTimestamp');
       this.set('pausedTime', pausedTime);
       this.set('isNotPaused', false);    
     },
-    play: function() {
+    play() {
       this.set('isNotPaused', true);
       this.set('pausedTime', null); 
     },
-    timezoneChanged: function(timezone) {
+    timezoneChanged(timezone) {
       this.set('currentTimezone', timezone);
+    },
+    convertTimestamp(value, some, thing) {
+      debugger;
+      console.log('convert');
+      this.set('isNotPaused', false);
+      this.set('pausedTime', value);
     }
   }
 });
