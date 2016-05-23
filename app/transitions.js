@@ -1,7 +1,7 @@
 export default function() {
     this.transition(
         this.fromRoute('application'),
-        this.toRoute('robot'),
+        this.toRoute('home'),
         this.use('fade'),
         this.reverse('fade')
     );
@@ -14,14 +14,7 @@ export default function() {
     );
 
     this.transition(
-        this.fromRoute('application'),
-        this.toRoute('human'),
-        this.use('fade'),
-        this.reverse('fade')
-    );
-
-    this.transition(
-        this.fromRoute('robot'),
+        this.fromRoute('home'),
         this.toRoute('about'),
         this.use('fade'),
         this.reverse('fade')
