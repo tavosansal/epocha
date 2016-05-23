@@ -4,7 +4,9 @@ export default Ember.Route.extend({
   converters: Ember.A(),
 
   model() {
-    this.get('converters').pushObject(1);
+    if (this.get('converters').length === 0) {
+      this.get('converters').pushObject(1);      
+    }
     return this.get('converters');
   },
 
