@@ -1,5 +1,5 @@
 {
-  "name": "tempus",
+  "name": "epocha",
   "dependencies": {
     "ember": "2.5.1",
     "ember-cli-shims": "0.1.0",
