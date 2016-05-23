@@ -55,9 +55,14 @@ export default Ember.Component.extend({
     timezoneChanged(timezone) {
       this.set('currentTimezone', timezone);
     },
-    convertTimestamp(value, some, thing) {
+    convertTimestamp(value) {
       this.set('isNotPaused', false);
       this.set('pausedTime', value);
-    }
+    },
+    saveLabel(label) {
+      const model = this.get('model');
+      model.set('label', label);
+      model.save();  
+    },
   }
 });

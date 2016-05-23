@@ -1,21 +1,27 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 export default Ember.Route.extend({
-  converters: Ember.A(),
-
   model() {
-    if (this.get('converters').length === 0) {
-      this.get('converters').pushObject(1);      
+    return this.store.findAll('converter');
+  },
+  
+  afterModel(model) {
+    if (!model.content.length) {
+      this.newEmptyConverter();
     }
-    return this.get('converters');
+  },
+  
+  newEmptyConverter() {
+    const emptyRecord = this.store.createRecord('converter', {
+        title: '',
+      });
+      emptyRecord.save();
   },
 
   actions: {
     addConverter() {
-      let last = this.get('converters.lastObject');
-      last++;
-
-      this.get('converters').pushObject(last);
+      this.newEmptyConverter();
     }
   }
 });
