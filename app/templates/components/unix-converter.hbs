@@ -1,3 +1,4 @@
+<div class="pull-right" {{action "removeConverter"}}>Remove</div>
 <form>
     <div class="form-group">
       <input value={{model.label}} placeholder="Add Label" class="form-control" oninput={{action "saveLabel" value="target.value"}}>
@@ -20,8 +21,8 @@
         {{input type="text" class="form-control" value=humanDateUtc disabled="disabled"}}
     </div>
     {{#liquid-if isNotPaused class="button-area"}}
-        <button type="submit" class="btn btn-danger btn-lg" {{action "pause"}}><span class="glyphicon glyphicon-pause"></span></button>
+        <button type="submit" class="btn btn-danger btn-lg pull-left" {{action "pause"}}><span class="glyphicon glyphicon-pause"></span></button>
     {{else}}
-        <button type="submit" class="btn btn-success btn-lg" {{action "play"}}><span class="glyphicon glyphicon-play"></span></button>
+        <button type="submit" class="btn btn-success btn-lg pull-left" {{action "play"}}><span class="glyphicon glyphicon-play"></span></button>
     {{/liquid-if}}
 </form>

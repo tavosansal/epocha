@@ -8,6 +8,7 @@ export default Ember.Component.extend({
   currentTimestamp: Ember.computed.alias('currentTime.currentTime'),
   timezones: Ember.computed.alias('currentTime.timezones'),
   isPaused: Ember.computed.not('isNotPaused'),
+  isNotLastIndex: Ember.computed.gt('index', 0),
   
   init() {
     this._super(...arguments);
@@ -63,6 +64,11 @@ export default Ember.Component.extend({
       const model = this.get('model');
       model.set('label', label);
       model.save();  
+    },
+    removeConverter() {
+      if (confirm('Are you sure you want to remove this itemt?')) {
+        this.get('model').destroyRecord();
+      }
     },
   }
 });
