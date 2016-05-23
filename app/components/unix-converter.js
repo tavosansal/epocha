@@ -56,8 +56,6 @@ export default Ember.Component.extend({
       this.set('currentTimezone', timezone);
     },
     convertTimestamp(value, some, thing) {
-      debugger;
-      console.log('convert');
       this.set('isNotPaused', false);
       this.set('pausedTime', value);
     }
