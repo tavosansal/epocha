@@ -66,7 +66,7 @@ export default Ember.Component.extend({
       model.save();  
     },
     removeConverter() {
-      if (confirm('Are you sure you want to remove this itemt?')) {
+      if (confirm('Are you sure you want to remove this item?')) {
         this.get('model').destroyRecord();
       }
     },
