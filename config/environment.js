@@ -19,6 +19,10 @@ module.exports = function(environment) {
     }
   };
 
+  if (process.env.EMBER_CLI_ELECTRON) {
+    ENV.isElectron = true;
+  }
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
