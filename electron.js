@@ -28,6 +28,7 @@ const mb = menubar({
     preloadWindow: true,
     icon: 'iconTemplate.png',
     transparent: true,
+    tooltip: 'Epocha',
 });
 
 app.on('window-all-closed', function onWindowAllClosed() {
