@@ -3,3 +3,11 @@ body { padding-top: 50px; }
 [data-ember-action]:not(:disabled) {
   cursor: pointer;
 }
+
+.marg-top {
+  margin-top: 10px;
+}
+
+.header-toggle {
+  border: none;
+}

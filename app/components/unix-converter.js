@@ -2,6 +2,8 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export default Ember.Component.extend({
+  electron: Ember.inject.service(),
+
   classNames: ['col-md-4'],
   isNotPaused: true,
   currentTime: Ember.inject.service(),
@@ -9,7 +11,7 @@ export default Ember.Component.extend({
   timezones: Ember.computed.alias('currentTime.timezones'),
   isPaused: Ember.computed.not('isNotPaused'),
   isNotLastIndex: Ember.computed.gt('index', 0),
-  
+
   init() {
     this._super(...arguments);
 
@@ -28,7 +30,7 @@ export default Ember.Component.extend({
     if (this.get('isPaused')) {
       timestampToConvert = this.get('pausedTime');
     } else {
-      timestampToConvert = this.get('currentTimestamp'); 
+      timestampToConvert = this.get('currentTimestamp');
     }
     return moment.unix(timestampToConvert).tz(this.get('currentTimezone.name'));
   }),
@@ -47,11 +49,11 @@ export default Ember.Component.extend({
     pause() {
       let pausedTime = this.get('pausedTime') || this.get('currentTimestamp');
       this.set('pausedTime', pausedTime);
-      this.set('isNotPaused', false);    
+      this.set('isNotPaused', false);
     },
     play() {
       this.set('isNotPaused', true);
-      this.set('pausedTime', null); 
+      this.set('pausedTime', null);
     },
     timezoneChanged(timezone) {
       this.set('currentTimezone', timezone);
@@ -63,7 +65,7 @@ export default Ember.Component.extend({
     saveLabel(label) {
       const model = this.get('model');
       model.set('label', label);
-      model.save();  
+      model.save();
     },
     removeConverter() {
       if (confirm('Are you sure you want to remove this item?')) {

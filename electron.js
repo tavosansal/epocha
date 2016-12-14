@@ -30,9 +30,7 @@ const mb = menubar({
 });
 
 app.on('window-all-closed', function onWindowAllClosed() {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+  app.quit();
 });
 
 mb.on('ready', function onReady() {
