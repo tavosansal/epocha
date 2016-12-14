@@ -24,9 +24,10 @@ let mainWindow = null;
 
 const mb = menubar({
     index: emberAppLocation,
-    height:500,
+    height: 450,
     preloadWindow: true,
-    icon: 'iconTemplate.png'
+    icon: 'iconTemplate.png',
+    transparent: true,
 });
 
 app.on('window-all-closed', function onWindowAllClosed() {
