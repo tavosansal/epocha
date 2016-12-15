@@ -11,4 +11,5 @@ export default Router.map(function() {
   });
   this.route('about', function() {});
   this.route('single');
+  this.route('downloads');
 });
