@@ -63,16 +63,18 @@
     "WHAT IS THIS?": "Please see the README.md",
     "copy-files": [
       "electron.js",
-      "package.json"
+      "package.json",
+      "IconTemplate.png",
+      "IconTemplate@2x.png"
     ],
     "name": null,
-    "platform": null,
+    "platform": "darwin",
     "arch": null,
-    "version": null,
+    "version": "1.0.0",
     "app-bundle-id": null,
     "app-category-type": null,
     "app-copyright": null,
-    "app-version": null,
+    "app-version": "1.0.0",
     "asar": null,
     "asar-unpack": null,
     "asar-unpack-dir": null,
@@ -81,7 +83,7 @@
     "extend-info": null,
     "extra-resource": null,
     "helper-bundle-id": null,
-    "icon": null,
+    "icon": "epocha.icns",
     "ignore": null,
     "out": null,
     "osx-sign": {
@@ -89,16 +91,16 @@
       "entitlements": null,
       "entitlements-inherit": null
     },
-    "overwrite": null,
+    "overwrite": true,
     "prune": null,
     "protocol": [],
     "protocol-names": [],
     "strict-ssl": null,
     "version-string": {
-      "CompanyName": null,
+      "CompanyName": "Gustavo San Jose",
       "FileDescription": null,
       "OriginalFilename": null,
-      "ProductName": null,
+      "ProductName": "Epocha",
       "InternalName": null
     }
   },

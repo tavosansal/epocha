@@ -26,9 +26,9 @@ const mb = menubar({
     index: emberAppLocation,
     height: 450,
     preloadWindow: true,
-    icon: 'iconTemplate.png',
-    transparent: true,
+    transparent: false,
     tooltip: 'Epocha',
+    resizable: false,
 });
 
 app.on('window-all-closed', function onWindowAllClosed() {
@@ -37,7 +37,7 @@ app.on('window-all-closed', function onWindowAllClosed() {
 
 mb.on('ready', function onReady() {
     // If you want to open up dev tools programmatically, call
-    mb.window.openDevTools()
+    // mb.window.openDevTools()
 
     // By default, we'll open the Ember App by directly going to the
     // file system.
