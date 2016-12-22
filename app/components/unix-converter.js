@@ -18,14 +18,14 @@ export default Ember.Component.extend({
     this.set('currentTimezone', this.get('currentTime.currentTimezone'));
   },
 
-  currentTimeDisplay: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function() {
+  currentTimeDisplay: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
     if (this.get('isPaused')) {
       return this.get('pausedTime');
     }
     return this.get('currentTimestamp');
   }),
 
-  humanDate: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function() {
+  humanDate: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
     let timestampToConvert;
     if (this.get('isPaused')) {
       timestampToConvert = this.get('pausedTime');
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
     return moment.unix(timestampToConvert).tz(this.get('currentTimezone.name'));
   }),
 
-  humanDateUtc: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function() {
+  humanDateUtc: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
     let timestampToConvert;
     if (this.get('isPaused')) {
       timestampToConvert = this.get('pausedTime');

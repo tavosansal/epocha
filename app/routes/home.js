@@ -13,9 +13,9 @@ export default Ember.Route.extend({
 
   newEmptyConverter() {
     const emptyRecord = this.store.createRecord('converter', {
-        title: '',
-      });
-      emptyRecord.save();
+      label: '',
+    });
+    emptyRecord.save();
   },
 
   actions: {
