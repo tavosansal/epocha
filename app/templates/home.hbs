@@ -2,9 +2,33 @@
   <h1>
     Epocha <img style="width: 40px;" src="img/word-clock.png" />
   </h1>
-  <p class="lead">Easy epoch to date converter {{#link-to 'about'}}
-    <span class="glyphicon glyphicon-question-sign" title="What is this?"></span> {{/link-to}}
+  <p class="lead">
+    Easy epoch to date converter
+    {{#link-to 'about'}}
+      <span class="glyphicon glyphicon-question-sign" title="What is this?"></span>
+    {{/link-to}}
   </p>
+
+  <button class="btn btn-default" {{action "toggleHelp"}}>
+    {{#if helpCollapsed}}
+      Help
+    {{else}}
+      Close
+    {{/if}}
+  </button>
+
+  {{#bs-collapse collapsed=helpCollapsed}}
+  <div class="well">
+    <p>
+      Start by pasting an unix timestamp and selecting your timezone. <br>
+      Epocha will automatically convert it for you into
+      a readable date and time. <br>
+      You can change the timezone at any time. <br>
+      Also, you can label your converter and add another one by clicking the 'Add New' button. This is handy for comparing timestamps side-by-side.
+    </p>
+  </div>
+  {{/bs-collapse}}
+
   <div class="container-fluid">
     <div class="row">
       {{#each model as |converter index|}}
