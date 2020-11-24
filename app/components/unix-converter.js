@@ -1,16 +1,19 @@
-import Ember from 'ember';
-import moment from 'moment';
+import { computed } from '@ember/object';
+import { alias, not, gt } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import moment from 'moment-timezone';
 
-export default Ember.Component.extend({
-  electron: Ember.inject.service(),
+export default Component.extend({
+  electron: service(),
 
   classNames: ['col-md-4'],
   isNotPaused: true,
-  currentTime: Ember.inject.service(),
-  currentTimestamp: Ember.computed.alias('currentTime.currentTime'),
-  timezones: Ember.computed.alias('currentTime.timezones'),
-  isPaused: Ember.computed.not('isNotPaused'),
-  isNotLastIndex: Ember.computed.gt('index', 0),
+  currentTime: service(),
+  currentTimestamp: alias('currentTime.currentTime'),
+  timezones: alias('currentTime.timezones'),
+  isPaused: not('isNotPaused'),
+  isNotLastIndex: gt('index', 0),
 
   init() {
     this._super(...arguments);
@@ -18,36 +21,36 @@ export default Ember.Component.extend({
     this.set('currentTimezone', this.get('currentTime.currentTimezone'));
   },
 
-  currentTimeDisplay: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
-    if (this.get('isPaused')) {
-      return this.get('pausedTime');
+  currentTimeDisplay: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
+    if (this.isPaused) {
+      return this.pausedTime;
     }
-    return this.get('currentTimestamp');
+    return this.currentTimestamp;
   }),
 
-  humanDate: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
+  humanDate: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
     let timestampToConvert;
-    if (this.get('isPaused')) {
-      timestampToConvert = this.get('pausedTime');
+    if (this.isPaused) {
+      timestampToConvert = this.pausedTime;
     } else {
-      timestampToConvert = this.get('currentTimestamp');
+      timestampToConvert = this.currentTimestamp;
     }
     return moment.unix(timestampToConvert).tz(this.get('currentTimezone.name'));
   }),
 
-  humanDateUtc: Ember.computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
+  humanDateUtc: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
     let timestampToConvert;
-    if (this.get('isPaused')) {
-      timestampToConvert = this.get('pausedTime');
+    if (this.isPaused) {
+      timestampToConvert = this.pausedTime;
     } else {
-      timestampToConvert = this.get('currentTimestamp');
+      timestampToConvert = this.currentTimestamp;
     }
     return moment.unix(timestampToConvert).utc();
   }),
 
   actions: {
     pause() {
-      let pausedTime = this.get('pausedTime') || this.get('currentTimestamp');
+      let pausedTime = this.pausedTime || this.currentTimestamp;
       this.set('pausedTime', pausedTime);
       this.set('isNotPaused', false);
     },
@@ -63,13 +66,13 @@ export default Ember.Component.extend({
       this.set('pausedTime', value);
     },
     saveLabel(label) {
-      const model = this.get('model');
+      const model = this.model;
       model.set('label', label);
       model.save();
     },
     removeConverter() {
       if (confirm('Are you sure you want to remove this item?')) {
-        this.get('model').destroyRecord();
+        this.model.destroyRecord();
       }
     },
   }

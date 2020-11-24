@@ -1,8 +1,15 @@
-import Ember from 'ember';
-import moment from 'moment';
-import _ from 'lodash/lodash';
+import { later } from '@ember/runloop';
+import Service from '@ember/service';
+import moment from 'moment-timezone';
 
-export default Ember.Service.extend({
+function groupBy (xs, key) {
+  return xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+}
+
+export default Service.extend({
 
   init() {
     this._super(...arguments);
@@ -12,8 +19,8 @@ export default Ember.Service.extend({
 
   updateTime() {
     // Update the time every second.
-    const updateClock = Ember.run.later(() => {
-      if (!this.get('isDestroyed') && !this.get('isDestroying')) {
+    const updateClock = later(() => {
+      if (!this.isDestroyed && !this.isDestroying) {
         this.set('currentTime', moment().unix());
       }
       this.updateTime();
@@ -22,7 +29,7 @@ export default Ember.Service.extend({
   },
 
   setupTimezones() {
-    let timeZonesList = _.map(moment.tz.names(), (zone) => {
+    let timeZonesList = moment.tz.names().map((zone) => {
       let group = zone.split('/');
 
       if (group.length > 1) {
@@ -37,18 +44,18 @@ export default Ember.Service.extend({
       };
     });
 
-    let groupedZones = _.groupBy(timeZonesList, 'group');
+    let groupedZones = groupBy(timeZonesList, 'group');
 
     let formattedGroups = [];
 
-    _.forEach(groupedZones, (group, key) => {
-      formattedGroups.push({
-        groupName: key,
-        options: group
-      });
-    });
+    // groupedZones.forEach((group, key) => {
+    //   formattedGroups.push({
+    //     groupName: key,
+    //     options: group
+    //   });
+    // });
 
-    this.set('timezones', formattedGroups);
+    this.set('timezones', groupedZones);
 
     //Find user timezone
     let userTz = moment.tz.guess();
@@ -57,7 +64,7 @@ export default Ember.Service.extend({
       group: userTz.split('/').length > 1 ? userTz.split('/')[0] : 'Other'
     };
 
-    if (!this.get('isDestroyed') && !this.get('isDestroying')) {
+    if (!this.isDestroyed && !this.isDestroying) {
       this.set('currentTimezone', userTz);
     }
   },

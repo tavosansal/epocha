@@ -1,9 +1,9 @@
 /* global require */
 
-import Ember from 'ember';
+import Service from '@ember/service';
 import ENV from 'epocha/config/environment';
 
-export default Ember.Service.extend({
+export default Service.extend({
   isElectron: false,
   contextMenu: null,
 
@@ -71,6 +71,6 @@ export default Ember.Service.extend({
 
   openContextMenu() {
     const { remote } = require('electron');
-    this.get('contextMenu').popup(remote.getCurrentWindow());
+    this.contextMenu.popup(remote.getCurrentWindow());
   },
 });

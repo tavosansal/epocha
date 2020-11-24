@@ -4,9 +4,9 @@
   </h1>
   <p class="lead">
     Easy epoch to date converter
-    {{#link-to 'about'}}
+    <LinkTo @route="about">
       <span class="glyphicon glyphicon-question-sign" title="What is this?"></span>
-    {{/link-to}}
+    </LinkTo>
   </p>
 
   <button class="btn btn-default" {{action "toggleHelp"}}>
@@ -17,7 +17,7 @@
     {{/if}}
   </button>
 
-  {{#bs-collapse collapsed=helpCollapsed}}
+  <BsCollapse @collapsed={{helpCollapsed}}>
   <div class="well">
     <p>
       Start by pasting an unix timestamp and selecting your timezone. <br>
@@ -27,12 +27,12 @@
       Also, you can label your converter and add another one by clicking the 'Add New' button. This is handy for comparing timestamps side-by-side.
     </p>
   </div>
-  {{/bs-collapse}}
+  </BsCollapse>
 
   <div class="container-fluid">
     <div class="row">
       {{#each model as |converter index|}}
-        {{unix-converter model=converter index=index}}
+        <UnixConverter @model={{converter}} @index={{index}} />
       {{/each}}
       <form>
         <button class="btn btn-default" {{action 'addConverter'}}>

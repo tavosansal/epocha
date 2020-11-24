@@ -1,13 +1,16 @@
-/* global require, module */
+'use strict';
 
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
+  let app = new EmberApp(defaults, {
+    // Add options here
     'ember-bootstrap': {
-      'importBootstrapTheme': true
-    }
-    // Any other options
+      'importBootstrapTheme': true,
+      bootstrapVersion: 3,
+      importBootstrapCSS: false,
+      importBootstrapFont: true
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -24,5 +27,4 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   return app.toTree();
-
 };

@@ -20,17 +20,17 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </button> {{#link-to 'home' class="navbar-brand"}} Epocha {{/link-to}}
+        </button> <LinkTo @route="home" class="navbar-brand"> Epocha </LinkTo>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            {{#link-to 'about'}} About {{/link-to}}
+            <LinkTo @route="about"> About </LinkTo>
           </li>
           <li>
-            {{#link-to 'downloads'}} Downloads {{/link-to}}
+            <LinkTo @route="downloads"> Downloads </LinkTo>
           </li>
           <li>
             <a href="https://github.com/tavosansal/epocha" target="_blank">

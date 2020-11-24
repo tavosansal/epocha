@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
-  electron: Ember.inject.service(),
+export default Route.extend({
+  electron: service(),
 
   redirect() {
     if (this.get('electron.isElectron')) {
@@ -12,7 +13,7 @@ export default Ember.Route.extend({
   actions: {
     openMenu() {
       if (this.get('electron.isElectron')) {
-        this.get('electron').openContextMenu();
+        this.electron.openContextMenu();
       }
     },
   },
