@@ -46,15 +46,6 @@ export default Service.extend({
 
     let groupedZones = groupBy(timeZonesList, 'group');
 
-    let formattedGroups = [];
-
-    // groupedZones.forEach((group, key) => {
-    //   formattedGroups.push({
-    //     groupName: key,
-    //     options: group
-    //   });
-    // });
-
     this.set('timezones', groupedZones);
 
     //Find user timezone
