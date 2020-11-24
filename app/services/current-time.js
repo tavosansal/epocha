@@ -26,9 +26,7 @@ export default class CurrentTimeService extends Service {
   updateTime() {
     // Update the time every second.
     const updateClock = later(() => {
-      if (!this.isDestroyed && !this.isDestroying) {
-        this.set('currentTime', moment().unix());
-      }
+      this.set('currentTime', moment().unix());
       this.updateTime();
     }, 1000);
     this.set('updateClock', updateClock);
