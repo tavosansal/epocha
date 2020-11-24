@@ -9,13 +9,19 @@ function groupBy (xs, key) {
   }, {});
 }
 
-export default Service.extend({
+export default class CurrentTimeService extends Service {
+  get timezones() {
+    return moment.tz.names();
+  }
 
-  init() {
-    this._super(...arguments);
-    this.setupTimezones();
+  get currentTimezone() {
+    return moment.tz.guess();
+  }
+
+  constructor(...args) {
+    super(...args);
     this.updateTime();
-  },
+  }
 
   updateTime() {
     // Update the time every second.
@@ -26,38 +32,5 @@ export default Service.extend({
       this.updateTime();
     }, 1000);
     this.set('updateClock', updateClock);
-  },
-
-  setupTimezones() {
-    let timeZonesList = moment.tz.names().map((zone) => {
-      let group = zone.split('/');
-
-      if (group.length > 1) {
-        group = group[0];
-      } else {
-        group = 'Other';
-      }
-
-      return {
-        name: zone,
-        group: group
-      };
-    });
-
-    let groupedZones = groupBy(timeZonesList, 'group');
-
-    this.set('timezones', groupedZones);
-
-    //Find user timezone
-    let userTz = moment.tz.guess();
-    userTz = {
-      name: userTz,
-      group: userTz.split('/').length > 1 ? userTz.split('/')[0] : 'Other'
-    };
-
-    if (!this.isDestroyed && !this.isDestroying) {
-      this.set('currentTimezone', userTz);
-    }
-  },
-
-});
+  }
+}

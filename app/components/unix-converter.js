@@ -28,14 +28,14 @@ export default Component.extend({
     return this.currentTimestamp;
   }),
 
-  humanDate: computed('currentTimestamp', 'pausedTime', 'isPaused', 'currentTimezone.name', function () {
+  humanDate: computed('currentTimestamp', 'pausedTime', 'isPaused', 'currentTimezone', function () {
     let timestampToConvert;
     if (this.isPaused) {
       timestampToConvert = this.pausedTime;
     } else {
       timestampToConvert = this.currentTimestamp;
     }
-    return moment.unix(timestampToConvert).tz(this.currentTimezone.name);
+    return moment.unix(timestampToConvert).tz(this.currentTimezone);
   }),
 
   humanDateUtc: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {

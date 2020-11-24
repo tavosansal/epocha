@@ -16,7 +16,7 @@
         placeholder="Type a timestamp (ex. 1456249984)"/>
     </div>
     <div class="form-group">
-        <label>Current Date and Time ({{currentTimezone.name}})</label>
+        <label>Current Date and Time ({{currentTimezone}})</label>
         <TimezoneSelect @onChange={{action "timezoneChanged"}} @timezones={{timezones}} @timezoneSelected={{currentTimezone}} />
         <div>&nbsp;</div>
         <Input @type="text" class="form-control" @value={{humanDate}} @disabled="disabled" />
