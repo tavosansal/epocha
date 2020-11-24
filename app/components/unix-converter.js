@@ -18,7 +18,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
 
-    this.set('currentTimezone', this.get('currentTime.currentTimezone'));
+    this.set('currentTimezone', this.currentTime.currentTimezone);
   },
 
   currentTimeDisplay: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
@@ -28,14 +28,14 @@ export default Component.extend({
     return this.currentTimestamp;
   }),
 
-  humanDate: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
+  humanDate: computed('currentTimestamp', 'pausedTime', 'isPaused', 'currentTimezone.name', function () {
     let timestampToConvert;
     if (this.isPaused) {
       timestampToConvert = this.pausedTime;
     } else {
       timestampToConvert = this.currentTimestamp;
     }
-    return moment.unix(timestampToConvert).tz(this.get('currentTimezone.name'));
+    return moment.unix(timestampToConvert).tz(this.currentTimezone.name);
   }),
 
   humanDateUtc: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
