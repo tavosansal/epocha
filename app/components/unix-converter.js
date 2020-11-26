@@ -18,7 +18,15 @@ export default Component.extend({
   init() {
     this._super(...arguments);
 
-    this.set('currentTimezone', this.currentTime.currentTimezone);
+    if (this.model.timestamp) {
+      this.set('isNotPaused', false);
+      this.set('pausedTime', this.model.timestamp);
+    }
+    if (this.model.timezone) {
+      this.set('currentTimezone', this.model.timezone);
+    } else {
+      this.set('currentTimezone', this.currentTime.currentTimezone);
+    }
   },
 
   currentTimeDisplay: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
@@ -52,23 +60,30 @@ export default Component.extend({
     pause() {
       let pausedTime = this.pausedTime || this.currentTimestamp;
       this.set('pausedTime', pausedTime);
+      this.model.set('timestamp', pausedTime);
+      this.model.save();
       this.set('isNotPaused', false);
     },
     play() {
       this.set('isNotPaused', true);
       this.set('pausedTime', null);
+      this.model.set('timestamp', null);
+      this.model.save();
     },
     timezoneChanged(timezone) {
       this.set('currentTimezone', timezone);
+      this.model.set('timezone', timezone);
+      this.model.save();
     },
     convertTimestamp(value) {
       this.set('isNotPaused', false);
       this.set('pausedTime', value);
+      this.model.set('timestamp', value);
+      this.model.save();
     },
     saveLabel(label) {
-      const model = this.model;
-      model.set('label', label);
-      model.save();
+      this.model.set('label', label);
+      this.model.save();
     },
     removeConverter() {
       if (confirm('Are you sure you want to remove this item?')) {
