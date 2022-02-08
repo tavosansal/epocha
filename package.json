@@ -61,6 +61,7 @@
     "ember-service-worker-index": "^0.7.2",
     "ember-source": "~3.22.0",
     "ember-template-lint": "^2.14.0",
+    "ember-web-app": "^5.0.1",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-ember": "^9.3.0",
