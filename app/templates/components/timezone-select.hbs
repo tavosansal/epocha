@@ -1,5 +1,11 @@
 {{log timezoneSelected}}
 
-<PowerSelect @options={{timezones}} @selected={{timezoneSelected}} @onChange={{action "selectionChanged"}} @searchEnabled={{true}} as |timezone|>
+<PowerSelect
+  @options={{timezones}}
+  @selected={{timezoneSelected}}
+  @onChange={{action "selectionChanged"}}
+  @searchEnabled={{true}}
+  as |timezone|
+>
   {{timezone}}
 </PowerSelect>

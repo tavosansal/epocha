@@ -16,5 +16,5 @@ export default Route.extend({
 
       controller.set('model', emptyRecord);
     }
-  }
+  },
 });

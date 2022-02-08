@@ -26,7 +26,7 @@ export default Service.extend({
         click() {
           const shell = require('electron').shell;
           shell.openExternal('http://www.epocha.io/about');
-        }
+        },
       })
     );
     menu.append(
@@ -34,22 +34,28 @@ export default Service.extend({
         label: 'Quit Epocha',
         click() {
           window.close();
-        }
+        },
       })
     );
     menu.append(new MenuItem({ type: 'separator' }));
-    menu.append(new MenuItem({
-      label: 'Cut',
-      role: 'cut',
-    }));
-    menu.append(new MenuItem({
-      label: 'Copy',
-      role: 'copy',
-    }));
-    menu.append(new MenuItem({
-      label: 'Paste',
-      role: 'paste',
-    }));
+    menu.append(
+      new MenuItem({
+        label: 'Cut',
+        role: 'cut',
+      })
+    );
+    menu.append(
+      new MenuItem({
+        label: 'Copy',
+        role: 'copy',
+      })
+    );
+    menu.append(
+      new MenuItem({
+        label: 'Paste',
+        role: 'paste',
+      })
+    );
 
     this.set('contextMenu', menu);
 

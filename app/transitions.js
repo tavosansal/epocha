@@ -1,38 +1,13 @@
 export default function () {
-  this.transition(
-    this.fromRoute('application'),
-    this.toRoute('home'),
-    this.use('fade'),
-    this.reverse('fade')
-  );
+  this.transition(this.fromRoute('application'), this.toRoute('home'), this.use('fade'), this.reverse('fade'));
 
-  this.transition(
-    this.fromRoute('application'),
-    this.toRoute('about'),
-    this.use('fade'),
-    this.reverse('fade')
-  );
+  this.transition(this.fromRoute('application'), this.toRoute('about'), this.use('fade'), this.reverse('fade'));
 
-  this.transition(
-    this.fromRoute('home'),
-    this.toRoute('about'),
-    this.use('fade'),
-    this.reverse('fade')
-  );
+  this.transition(this.fromRoute('home'), this.toRoute('about'), this.use('fade'), this.reverse('fade'));
 
-  this.transition(
-    this.fromRoute('home'),
-    this.toRoute('downloads'),
-    this.use('fade'),
-    this.reverse('fade')
-  );
+  this.transition(this.fromRoute('home'), this.toRoute('downloads'), this.use('fade'), this.reverse('fade'));
 
-  this.transition(
-    this.fromRoute('about'),
-    this.toRoute('downloads'),
-    this.use('fade'),
-    this.reverse('fade')
-  );
+  this.transition(this.fromRoute('about'), this.toRoute('downloads'), this.use('fade'), this.reverse('fade'));
 
   this.transition(
     this.hasClass('button-area'),

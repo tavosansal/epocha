@@ -7,6 +7,6 @@ export default Component.extend({
     selectionChanged(selection) {
       this.set('timezoneSelected', selection);
       this.onChange(selection);
-    }
-  }
+    },
+  },
 });

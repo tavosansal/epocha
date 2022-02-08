@@ -1,6 +1,7 @@
 <div class="container">
   <h1>
-    Epocha <img style="width: 40px;" src="img/word-clock.png" />
+    Epocha
+    <img style="width: 40px;" src="img/word-clock.png" />
   </h1>
   <p class="lead">
     Easy epoch to date converter
@@ -18,15 +19,18 @@
   </button>
 
   <BsCollapse @collapsed={{helpCollapsed}}>
-  <div class="well">
-    <p>
-      Start by pasting an unix timestamp and selecting your timezone. <br>
-      Epocha will automatically convert it for you into
-      a readable date and time. <br>
-      You can change the timezone at any time. <br>
-      Also, you can label your converter and add another one by clicking the 'Add New' button. This is handy for comparing timestamps side-by-side.
-    </p>
-  </div>
+    <div class="well">
+      <p>
+        Start by pasting an unix timestamp and selecting your timezone.
+        <br />
+        Epocha will automatically convert it for you into a readable date and time.
+        <br />
+        You can change the timezone at any time.
+        <br />
+        Also, you can label your converter and add another one by clicking the 'Add New' button. This is handy for
+        comparing timestamps side-by-side.
+      </p>
+    </div>
   </BsCollapse>
 
   <div class="container-fluid">
@@ -35,7 +39,7 @@
         <UnixConverter @model={{converter}} @index={{index}} />
       {{/each}}
       <form>
-        <button class="btn btn-default" {{action 'addConverter'}}>
+        <button class="btn btn-default" {{action "addConverter"}}>
           Add New
           <span class="glyphicon glyphicon-plus"></span>
         </button>

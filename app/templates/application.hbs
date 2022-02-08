@@ -3,7 +3,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     {{#if electron.isElectron}}
       <div class="navbar-header">
-        <span class="navbar-toggle" {{action 'openMenu'}}>
+        <span class="navbar-toggle" {{action "openMenu"}}>
           <span class="navbar-text header-toggle">
             <span class="glyphicon glyphicon-option-vertical"></span>
           </span>
@@ -15,12 +15,18 @@
       </div>
     {{else}}
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <button
+          type="button"
+          class="navbar-toggle collapsed"
+          data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1"
+        >
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </button> <LinkTo @route="home" class="navbar-brand"> Epocha </LinkTo>
+        </button>
+        <LinkTo @route="home" class="navbar-brand"> Epocha </LinkTo>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
