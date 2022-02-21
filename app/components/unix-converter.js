@@ -7,7 +7,7 @@ import moment from 'moment-timezone';
 export default Component.extend({
   electron: service(),
 
-  classNames: ['col-md-4'],
+  classNames: ['col-md-4', 'unix-converter'],
   isNotPaused: true,
   currentTime: service(),
   currentTimestamp: alias('currentTime.currentTime'),
