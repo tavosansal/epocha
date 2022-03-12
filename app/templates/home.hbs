@@ -38,12 +38,12 @@
       {{#each model as |converter index|}}
         <UnixConverter @model={{converter}} @index={{index}} />
       {{/each}}
-      <form>
-        <button class="btn btn-default" {{action "addConverter"}}>
+      <div class="pad-15 text-center">
+        <button class="btn btn-default btn-margin-top" {{action "addConverter"}}>
           Add New
           <span class="glyphicon glyphicon-plus"></span>
         </button>
-      </form>
+      </div>
     </div>
   </div>
 </div>

@@ -1,10 +1,6 @@
-{{#unless electron.isElectron}}
-  <div class="pull-right" {{action "removeConverter"}}>Remove</div>
-{{else}}
-  <div class="marg-top"></div>
-{{/unless}}
 <form>
   <div class="form-group">
+    <label>Label</label>
     <input
       value={{model.label}}
       placeholder="Add Label"
@@ -37,13 +33,21 @@
     <label>Current Date and Time (UTC)</label>
     <Input @type="text" class="form-control" @value={{humanDateUtc}} @disabled="disabled" />
   </div>
-  {{#liquid-if isNotPaused class="button-area"}}
-    <button type="submit" class="btn btn-danger btn-block" {{action "pause"}}><span
-        class="glyphicon glyphicon-pause"
-      ></span></button>
+  {{#if isNotPaused class="button-area"}}
+    <button type="submit" class="btn btn-default" {{action "pause"}}>
+      <span class="glyphicon glyphicon-pause"></span>
+      Pause Live Mode
+    </button>
   {{else}}
-    <button type="submit" class="btn btn-success btn-block" {{action "play"}}><span
-        class="glyphicon glyphicon-play"
-      ></span></button>
-  {{/liquid-if}}
+    <button type="submit" class="btn btn-success" {{action "play"}}>
+      <span class="glyphicon glyphicon-play"></span>
+      Play Live Mode &nbsp;
+    </button>
+  {{/if}}
+  {{#unless electron.isElectron}}
+    <button class="btn btn-danger btn-sm pull-right" {{action "removeConverter"}}>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      Delete
+    </button>
+  {{/unless}}
 </form>
