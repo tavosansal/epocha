@@ -9,7 +9,8 @@
     />
   </div>
   <div class="form-group">
-    <label>Current Unix Timestamp</label>
+    <label>Unix Timestamp</label>
+    <p class="help-block">Paste your own timestamp to pause live mode and see a date.</p>
     <input
       value={{currentTimeDisplay}}
       id="robot"
@@ -20,7 +21,7 @@
     />
   </div>
   <div class="form-group">
-    <label>Current Date and Time ({{currentTimezone}})</label>
+    <label>Date and Time ({{currentTimezone}})</label>
     <TimezoneSelect
       @onChange={{action "timezoneChanged"}}
       @timezones={{timezones}}
@@ -30,7 +31,7 @@
     <Input @type="text" class="form-control" @value={{humanDate}} @disabled="disabled" />
   </div>
   <div class="form-group">
-    <label>Current Date and Time (UTC)</label>
+    <label>Date and Time (UTC)</label>
     <Input @type="text" class="form-control" @value={{humanDateUtc}} @disabled="disabled" />
   </div>
   {{#if isNotPaused class="button-area"}}
