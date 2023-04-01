@@ -31,7 +31,7 @@
     "electron": "^1.4.12",
     "electron-packager": "^17.1.1",
     "electron-rebuild": "^1.4.0",
-    "ember-auto-import": "^1.6.0",
+    "ember-auto-import": "^1.12.2",
     "ember-bootstrap": "^4.4.0",
     "ember-cli": "~3.22.0",
     "ember-cli-app-version": "^4.0.0",
