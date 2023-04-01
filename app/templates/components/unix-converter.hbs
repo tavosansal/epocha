@@ -28,7 +28,14 @@
       @timezoneSelected={{currentTimezone}}
     />
     <div>&nbsp;</div>
-    <Input @type="text" class="form-control" @value={{humanDate}} @disabled="disabled" />
+    <input
+      class="form-control"
+      value={{humanDate}}
+      type="datetime-local"
+      step="1"
+      onfocus={{action "pause"}}
+      oninput={{action "convertDate" value="target.value"}}
+    />
   </div>
   <div class="form-group">
     <label>Date and Time (UTC)</label>

@@ -28,10 +28,7 @@
     "bootstrap-sass": "^3.4.1",
     "broccoli-asset-rev": "^3.0.0",
     "devtron": "^1.4.0",
-    "electron": "^1.4.12",
-    "electron-packager": "^17.1.1",
-    "electron-rebuild": "^1.4.0",
-    "ember-auto-import": "^1.12.2",
+    "ember-auto-import": "^1.6.0",
     "ember-bootstrap": "^4.4.0",
     "ember-cli": "~3.22.0",
     "ember-cli-app-version": "^4.0.0",
@@ -45,7 +42,6 @@
     "ember-cli-terser": "^4.0.0",
     "ember-cli-update": "^1.0.1",
     "ember-data": "~3.22.0",
-    "ember-electron": "^4.1.0",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.0.2",
     "ember-inspector": "^2.0.4",
@@ -77,57 +73,11 @@
     "sass": "^1.29.0"
   },
   "engines": {
-    "node": "12.18.2",
-    "npm": "6.14.6"
+    "node": "18.14.0",
+    "npm": "9.3.1"
   },
   "ember": {
     "edition": "octane"
-  },
-  "main": "electron.js",
-  "ember-electron": {
-    "WHAT IS THIS?": "Please see the README.md",
-    "copy-files": [
-      "electron.js",
-      "package.json",
-      "IconTemplate.png",
-      "IconTemplate@2x.png"
-    ],
-    "name": null,
-    "platform": "darwin",
-    "arch": null,
-    "version": "1.1.0",
-    "app-bundle-id": null,
-    "app-category-type": null,
-    "app-copyright": null,
-    "app-version": "1.1.0",
-    "asar": null,
-    "asar-unpack": null,
-    "asar-unpack-dir": null,
-    "build-version": null,
-    "cache": null,
-    "extend-info": null,
-    "extra-resource": null,
-    "helper-bundle-id": null,
-    "icon": "epocha.icns",
-    "ignore": null,
-    "out": null,
-    "osx-sign": {
-      "identity": null,
-      "entitlements": null,
-      "entitlements-inherit": null
-    },
-    "overwrite": true,
-    "prune": null,
-    "protocol": [],
-    "protocol-names": [],
-    "strict-ssl": null,
-    "version-string": {
-      "CompanyName": "Gustavo San Jose",
-      "FileDescription": null,
-      "OriginalFilename": null,
-      "ProductName": "Epocha",
-      "InternalName": null
-    }
   },
   "dependencies": {
     "menubar": "^5.1.0"
