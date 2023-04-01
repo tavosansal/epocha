@@ -29,7 +29,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "^1.4.12",
-    "electron-packager": "^8.4.0",
+    "electron-packager": "^17.1.1",
     "electron-rebuild": "^1.4.0",
     "ember-auto-import": "^1.6.0",
     "ember-bootstrap": "^4.4.0",
