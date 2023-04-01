@@ -1,3 +1,15 @@
+// Your variable overrides
+// $body-bg: #000;
+// $body-color: #111;
+
+// TODO: Some day look into this
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+  }
+}
+
 @import 'ember-power-select/themes/bootstrap';
 @import 'ember-power-select';
 @import 'epocha';

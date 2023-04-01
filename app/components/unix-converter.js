@@ -43,7 +43,10 @@ export default Component.extend({
     } else {
       timestampToConvert = this.currentTimestamp;
     }
-    return moment.unix(timestampToConvert).tz(this.currentTimezone);
+    const currentMoment = moment.unix(timestampToConvert).tz(this.currentTimezone);
+    const datePart = currentMoment.format('YYYY-MM-DD');
+    const timePart = currentMoment.format('HH:mm:ss');
+    return `${datePart}T${timePart}`;
   }),
 
   humanDateUtc: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
@@ -79,6 +82,16 @@ export default Component.extend({
       this.set('isNotPaused', false);
       this.set('pausedTime', value);
       this.model.set('timestamp', value);
+      this.model.save();
+    },
+    convertDate(value) {
+      const timestampFromDatePicker = moment(value, moment.HTML5_FMT.DATETIME_LOCAL_SECONDS)
+        .tz(this.currentTimezone)
+        .unix();
+
+      this.set('isNotPaused', false);
+      this.set('pausedTime', timestampFromDatePicker);
+      this.model.set('timestamp', timestampFromDatePicker);
       this.model.save();
     },
     saveLabel(label) {
