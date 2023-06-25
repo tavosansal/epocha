@@ -1,7 +1,10 @@
-# epocha
+# Epocha
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A web application for converting unix epoch timestamps to dates and vice-versa. It supports a live mode to get the current epoch timestamp. It also supports pasting your own timestampt to get the date value in whatever timezone you choose. It also supports adding multiple converters. This helps when comparing two or more timestamps for different values like a start and end date. 
+
+The project will store your state on local storage so that you can come back to the previous timestamps you were using. 
+
+You can see the project in action at [epocha.io](https://www.epocha.io/)
 
 ## Prerequisites
 
