@@ -1,61 +1,63 @@
-<form>
-  <div class="form-group">
-    <label>Label</label>
-    <input
-      value={{model.label}}
-      placeholder="Add Label"
-      class="form-control"
-      oninput={{action "saveLabel" value="target.value"}}
-    />
+<form class="panel panel-default">
+  <div class="panel-body">
+    <div class="form-group">
+      <label>Label</label>
+      <input
+        value={{model.label}}
+        placeholder="Add Label"
+        class="form-control"
+        oninput={{action "saveLabel" value="target.value"}}
+      />
+    </div>
+    <div class="form-group">
+      <label>Unix Timestamp</label>
+      <p class="help-block">Paste your own timestamp to pause live mode and see a date.</p>
+      <input
+        value={{currentTimeDisplay}}
+        id="robot"
+        onfocus={{action "pause"}}
+        oninput={{action "convertTimestamp" value="target.value"}}
+        class="form-control"
+        placeholder="Type a timestamp (ex. 1456249984)"
+      />
+    </div>
+    <div class="form-group">
+      <label>Date and Time ({{currentTimezone}})</label>
+      <TimezoneSelect
+        @onChange={{action "timezoneChanged"}}
+        @timezones={{timezones}}
+        @timezoneSelected={{currentTimezone}}
+      />
+      <div>&nbsp;</div>
+      <input
+        class="form-control"
+        value={{humanDate}}
+        type="datetime-local"
+        step="1"
+        onfocus={{action "pause"}}
+        oninput={{action "convertDate" value="target.value"}}
+      />
+    </div>
+    <div class="form-group">
+      <label>Date and Time (UTC)</label>
+      <Input @type="text" class="form-control" @value={{humanDateUtc}} @disabled="disabled" />
+    </div>
+    {{#if isNotPaused class="button-area"}}
+      <button type="submit" class="btn btn-default" {{action "pause"}}>
+        <span class="glyphicon glyphicon-pause"></span>
+        Pause Live Mode
+      </button>
+    {{else}}
+      <button type="submit" class="btn btn-success" {{action "play"}}>
+        <span class="glyphicon glyphicon-play"></span>
+        Play Live Mode &nbsp;
+      </button>
+    {{/if}}
+    {{#unless electron.isElectron}}
+      <button class="btn btn-danger btn-sm pull-right" {{action "removeConverter"}}>
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        Delete
+      </button>
+    {{/unless}}
   </div>
-  <div class="form-group">
-    <label>Unix Timestamp</label>
-    <p class="help-block">Paste your own timestamp to pause live mode and see a date.</p>
-    <input
-      value={{currentTimeDisplay}}
-      id="robot"
-      onfocus={{action "pause"}}
-      oninput={{action "convertTimestamp" value="target.value"}}
-      class="form-control"
-      placeholder="Type a timestamp (ex. 1456249984)"
-    />
-  </div>
-  <div class="form-group">
-    <label>Date and Time ({{currentTimezone}})</label>
-    <TimezoneSelect
-      @onChange={{action "timezoneChanged"}}
-      @timezones={{timezones}}
-      @timezoneSelected={{currentTimezone}}
-    />
-    <div>&nbsp;</div>
-    <input
-      class="form-control"
-      value={{humanDate}}
-      type="datetime-local"
-      step="1"
-      onfocus={{action "pause"}}
-      oninput={{action "convertDate" value="target.value"}}
-    />
-  </div>
-  <div class="form-group">
-    <label>Date and Time (UTC)</label>
-    <Input @type="text" class="form-control" @value={{humanDateUtc}} @disabled="disabled" />
-  </div>
-  {{#if isNotPaused class="button-area"}}
-    <button type="submit" class="btn btn-default" {{action "pause"}}>
-      <span class="glyphicon glyphicon-pause"></span>
-      Pause Live Mode
-    </button>
-  {{else}}
-    <button type="submit" class="btn btn-success" {{action "play"}}>
-      <span class="glyphicon glyphicon-play"></span>
-      Play Live Mode &nbsp;
-    </button>
-  {{/if}}
-  {{#unless electron.isElectron}}
-    <button class="btn btn-danger btn-sm pull-right" {{action "removeConverter"}}>
-      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-      Delete
-    </button>
-  {{/unless}}
 </form>

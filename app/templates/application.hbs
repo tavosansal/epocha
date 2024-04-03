@@ -27,19 +27,29 @@
           <span class="icon-bar"></span>
         </button>
         <LinkTo @route="home" class="navbar-brand">
-          <img src="/img/android-chrome-192x192.png" class="img-inverted" alt="world clock" height="32px" />
+          <img
+            src="/img/android-chrome-192x192.png"
+            class="img-inverted pull-left"
+            alt="world clock"
+            height="32px"
+          /><span class="hidden-xs padding-left">Home</span>
         </LinkTo>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          <li class="visible-xs">
+            <LinkTo @route="home">
+              Home
+            </LinkTo>
+          </li>
           <li>
             <LinkTo @route="about"> About </LinkTo>
           </li>
-          <li>
+          {{! <li>
             <LinkTo @route="downloads"> Downloads </LinkTo>
-          </li>
+          </li> }}
           <li>
             <a href="https://github.com/tavosansal/epocha" target="_blank">
               <img src="img/octocat.png" style="width: 20px;" />

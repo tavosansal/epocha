@@ -10,26 +10,27 @@
     </LinkTo>
   </p>
 
-  <button class="btn btn-default" {{action "toggleHelp"}}>
+  <button class="btn btn-default" type="button" role="button" {{action "toggleHelp"}}>
     {{#if helpCollapsed}}
       Help
+      <span class="glyphicon glyphicon-chevron-down"></span>
     {{else}}
       Close
+      <span class="glyphicon glyphicon-chevron-up"></span>
     {{/if}}
   </button>
 
   <BsCollapse @collapsed={{helpCollapsed}}>
     <div class="well">
-      <p>
-        Start by pasting an unix timestamp and selecting your timezone.
-        <br />
-        Epocha will automatically convert it for you into a readable date and time.
-        <br />
-        You can change the timezone at any time.
-        <br />
-        Also, you can label your converter and add another one by clicking the 'Add New' button. This is handy for
-        comparing timestamps side-by-side.
-      </p>
+      <ul>
+        <li>Start by pasting an unix timestamp and selecting your timezone.</li>
+        <li>Epocha will automatically convert it for you into a readable date and time.</li>
+
+        <li>You can change the timezone at any time.</li>
+
+        <li>Also, you can label your converter and add another one by clicking the 'Add New' button. This is handy for
+          comparing timestamps side-by-side.</li>
+      </ul>
     </div>
   </BsCollapse>
 
@@ -45,5 +46,22 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <div class="well">
+    <h4>What is epoch time?</h4>
+    <p>
+      The Unix timestamp, also known as POSIX time or epoch time, is a system for tracking time in computing. It
+      represents the number of seconds that have elapsed since the Unix epoch, which is defined as 00:00:00 UTC on
+      January 1, 1970 (not counting leap seconds). This system was introduced as a convenient way to standardize time
+      representation across different computer systems and programming languages, providing a simple numeric value that
+      can be easily manipulated and compared.
+    </p>
+    <p>The Unix timestamp is widely used in software development for tasks such as measuring time intervals, scheduling
+      events, and handling timestamps in databases. Despite its simplicity, the Unix timestamp has limitations, such as
+      not accounting for leap seconds and its eventual rollover in the year 2038, which may lead to issues in systems
+      that rely on 32-bit signed integers for time representation. However, it remains a fundamental concept in
+      computing, forming the basis for various time-related operations in modern programming languages and frameworks.
+    </p>
   </div>
 </div>

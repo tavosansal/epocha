@@ -99,7 +99,7 @@ export default Component.extend({
       this.model.save();
     },
     removeConverter() {
-      if (confirm('Are you sure you want to remove this item?')) {
+      if (confirm('Are you sure you want to remove this converter?')) {
         this.model.destroyRecord();
       }
     },
