@@ -1,3 +1,4 @@
 # http://www.robotstxt.org
 User-agent: *
 Disallow:
+Sitemap: https://www.epocha.io/sitemap.txt
