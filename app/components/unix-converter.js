@@ -50,13 +50,13 @@ export default Component.extend({
   }),
 
   humanDateUtc: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
-    let timestampToConvert;
-    if (this.isPaused) {
-      timestampToConvert = this.pausedTime;
-    } else {
-      timestampToConvert = this.currentTimestamp;
-    }
+    const timestampToConvert = this.isPaused ? this.pausedTime : this.currentTimestamp;
     return moment.unix(timestampToConvert).utc();
+  }),
+
+  isoString: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
+    const timestampToConvert = this.isPaused ? this.pausedTime : this.currentTimestamp;
+    return new Date(timestampToConvert * 1000).toISOString();
   }),
 
   actions: {

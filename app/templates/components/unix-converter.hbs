@@ -42,6 +42,10 @@
       <label>Date and Time (UTC)</label>
       <Input @type="text" class="form-control" @value={{humanDateUtc}} @disabled="disabled" />
     </div>
+    <div class="form-group">
+      <label>ISO Date (UTC)</label>
+      <Input @type="text" class="form-control" @value={{isoString}} @disabled="disabled" />
+    </div>
     {{#if isNotPaused class="button-area"}}
       <button type="submit" class="btn btn-default" {{action "pause"}}>
         <span class="glyphicon glyphicon-pause"></span>

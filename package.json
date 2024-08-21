@@ -15,7 +15,7 @@
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
-    "start": "ember serve",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ember serve",
     "test": "npm-run-all lint:* test:*",
     "test:ember": "ember test"
   },
