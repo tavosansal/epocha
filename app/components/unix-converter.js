@@ -56,7 +56,7 @@ export default Component.extend({
 
   isoString: computed('currentTimestamp', 'pausedTime', 'isPaused', function () {
     const timestampToConvert = this.isPaused ? this.pausedTime : this.currentTimestamp;
-    return new Date(timestampToConvert * 1000).toISOString();
+    return timestampToConvert ? new Date(timestampToConvert * 1000).toISOString() : null;
   }),
 
   actions: {
