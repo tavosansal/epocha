@@ -16,9 +16,9 @@ module('Integration | Component | timezone select', function(hooks) {
 
     // Template block usage:"
     await render(hbs`
-      {{#timezone-select}}
+      <TimezoneSelect>
         template block text
-      {{/timezone-select}}
+      </TimezoneSelect>
     `);
 
     assert.dom('*').hasText('template block text');

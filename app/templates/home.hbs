@@ -6,22 +6,20 @@
   <p class="lead">
     Easy epoch to date converter
     <LinkTo @route="about">
-      <span class="glyphicon glyphicon-question-sign" title="What is this?"></span>
+      <span title="What is this?">❓</span>
     </LinkTo>
   </p>
 
-  <button class="btn btn-default" type="button" role="button" {{action "toggleHelp"}}>
-    {{#if helpCollapsed}}
-      Help
-      <span class="glyphicon glyphicon-chevron-down"></span>
+  <button class="btn btn-outline-secondary" type="button" {{action "toggleHelp"}}>
+    {{#if this.helpCollapsed}}
+      Help ▼
     {{else}}
-      Close
-      <span class="glyphicon glyphicon-chevron-up"></span>
+      Close ▲
     {{/if}}
   </button>
 
-  <BsCollapse @collapsed={{helpCollapsed}}>
-    <div class="well">
+  <BsCollapse @collapsed={{this.helpCollapsed}}>
+    <div class="alert alert-info mt-3">
       <ul>
         <li>Start by pasting an unix timestamp and selecting your timezone.</li>
         <li>Epocha will automatically convert it for you into a readable date and time.</li>
@@ -40,9 +38,8 @@
         <UnixConverter @model={{converter}} @index={{index}} />
       {{/each}}
       <div class="pad-15 text-center">
-        <button class="btn btn-default add-new-btn" {{action "addConverter"}}>
-          <span class="glyphicon glyphicon-plus"></span>
-          Add New
+        <button class="btn btn-outline-secondary add-new-btn" type="button" {{action "addConverter"}}>
+          ➕ Add New
         </button>
       </div>
     </div>

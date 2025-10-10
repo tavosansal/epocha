@@ -3,17 +3,28 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
-  let app = new EmberApp(defaults, {
+  const app = new EmberApp(defaults, {
+    emberData: {
+      deprecations: {
+        // New projects can safely leave this deprecation disabled.
+        // If upgrading, to opt-into the deprecated behavior, set this to true and then follow:
+        // https://deprecations.emberjs.com/id/ember-data-deprecate-store-extends-ember-object
+        // before upgrading to Ember Data 6.0
+        DEPRECATE_STORE_EXTENDS_EMBER_OBJECT: false,
+      },
+    },
     // Add options here
     'ember-bootstrap': {
       importBootstrapTheme: true,
-      bootstrapVersion: 3,
-      importBootstrapCSS: false,
-      importBootstrapFont: true,
+      bootstrapVersion: 5,
+      importBootstrapCSS: true,
+      importBootstrapFont: false,
     },
     'asset-cache': {
       include: ['assets/**/*', 'img/**/*', 'fonts/**/*'],
     },
+    // Enable jQuery integration for Bootstrap compatibility
+    'jquery-integration': true,
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -29,7 +40,8 @@ module.exports = function (defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js');
+  // Bootstrap 5 JavaScript is handled by ember-bootstrap addon
+  // app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js');
 
   return app.toTree();
 };

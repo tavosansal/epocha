@@ -2,11 +2,15 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 
 export default Route.extend({
+  router: service('router'),
   electron: service(),
 
   redirect() {
     if (this.get('electron.isElectron')) {
-      this.transitionTo('single');
+      this.router.transitionTo('single');
+    } else {
+      // Redirect to home route when not in Electron mode
+      this.router.transitionTo('home');
     }
   },
 

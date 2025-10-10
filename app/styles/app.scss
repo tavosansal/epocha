@@ -10,10 +10,12 @@
   }
 }
 
-@import 'ember-power-select/themes/bootstrap';
-@import 'ember-power-select';
+// Import Bootstrap 5 via ember-bootstrap
+@import "ember-bootstrap/bootstrap";
+
+// Import our custom styles
 @import 'epocha';
 
-@import 'ember-bootstrap/bootstrap';
-
-@import 'ember-power-select';
+// Temporarily commented out ember-power-select styles due to import issues
+// @import 'ember-power-select/themes/bootstrap';
+// @import 'ember-power-select';

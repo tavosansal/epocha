@@ -1,19 +1,19 @@
-<form class="panel panel-default">
-  <div class="panel-body">
-    <div class="form-group">
-      <label>Label</label>
+<form class="card">
+  <div class="card-body">
+    <div class="mb-3">
+      <label class="form-label">Label</label>
       <input
-        value={{model.label}}
+        value={{this.model.label}}
         placeholder="Add Label"
         class="form-control"
         oninput={{action "saveLabel" value="target.value"}}
       />
     </div>
-    <div class="form-group">
-      <label>Unix Timestamp</label>
-      <p class="help-block">Paste your own timestamp to pause live mode and see a date.</p>
+    <div class="mb-3">
+      <label class="form-label">Unix Timestamp</label>
+      <p class="form-text">Paste your own timestamp to pause live mode and see a date.</p>
       <input
-        value={{currentTimeDisplay}}
+        value={{this.currentTimeDisplay}}
         id="robot"
         onfocus={{action "pause"}}
         oninput={{action "convertTimestamp" value="target.value"}}
@@ -21,46 +21,43 @@
         placeholder="Type a timestamp (ex. 1456249984)"
       />
     </div>
-    <div class="form-group">
-      <label>Date and Time ({{currentTimezone}})</label>
+    <div class="mb-3">
+      <label class="form-label">Date and Time ({{this.currentTimezone}})</label>
       <TimezoneSelect
         @onChange={{action "timezoneChanged"}}
-        @timezones={{timezones}}
-        @timezoneSelected={{currentTimezone}}
+        @timezones={{this.timezones}}
+        @timezoneSelected={{this.currentTimezone}}
       />
       <div>&nbsp;</div>
       <input
         class="form-control"
-        value={{humanDate}}
+        value={{this.humanDate}}
         type="datetime-local"
         step="1"
         onfocus={{action "pause"}}
         oninput={{action "convertDate" value="target.value"}}
       />
     </div>
-    <div class="form-group">
-      <label>Date and Time (UTC)</label>
-      <Input @type="text" class="form-control" @value={{humanDateUtc}} @disabled="disabled" />
+    <div class="mb-3">
+      <label class="form-label">Date and Time (UTC)</label>
+      <Input @type="text" class="form-control" @value={{this.humanDateUtc}} disabled="disabled" />
     </div>
-    <div class="form-group">
-      <label>ISO Date (UTC)</label>
-      <Input @type="text" class="form-control" @value={{isoString}} @disabled="disabled" />
+    <div class="mb-3">
+      <label class="form-label">ISO Date (UTC)</label>
+      <Input @type="text" class="form-control" @value={{this.isoString}} disabled="disabled" />
     </div>
-    {{#if isNotPaused class="button-area"}}
-      <button type="submit" class="btn btn-default" {{action "pause"}}>
-        <span class="glyphicon glyphicon-pause"></span>
-        Pause Live Mode
+    {{#if this.isNotPaused}}
+      <button type="submit" class="btn btn-outline-secondary" {{action "pause"}}>
+        ⏸️ Pause Live Mode
       </button>
     {{else}}
       <button type="submit" class="btn btn-success" {{action "play"}}>
-        <span class="glyphicon glyphicon-play"></span>
-        Play Live Mode &nbsp;
+        ▶️ Play Live Mode &nbsp;
       </button>
     {{/if}}
     {{#unless electron.isElectron}}
-      <button class="btn btn-danger btn-sm pull-right" {{action "removeConverter"}}>
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-        Delete
+      <button class="btn btn-danger btn-sm float-end" type="submit" {{action "removeConverter"}}>
+        🗑️ Delete
       </button>
     {{/unless}}
   </div>

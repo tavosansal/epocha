@@ -16,9 +16,9 @@ module('Integration | Component | unix converter', function(hooks) {
 
     // Template block usage:"
     await render(hbs`
-      {{#unix-converter}}
+      <UnixConverter>
         template block text
-      {{/unix-converter}}
+      </UnixConverter>
     `);
 
     assert.dom('*').hasText('template block text');
