@@ -1,0 +1,17 @@
+.next/
+node_modules/
+tsconfig.tsbuildinfo
+.DS_Store
+.env.local
+
+# Ignore JS/JSX files generated alongside TS/TSX sources during dev
+# Keep config files (next.config.js, postcss.config.js) tracked
+components/**/*.js
+components/**/*.jsx
+components/ui/**/*.js
+components/ui/**/*.jsx
+pages/**/*.js
+pages/**/*.jsx
+context/**/*.js
+hooks/**/*.js
+
