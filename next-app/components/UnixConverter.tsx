@@ -79,7 +79,7 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
   }
 
   return (
-    <div className="bg-white shadow rounded p-4 mb-4">
+    <div className="bg-card shadow rounded p-4 mb-4">
       <div className="mb-2">
         <Label>Label</Label>
   <Input value={converter.label || ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => saveLabel(e.target.value)} />
@@ -87,7 +87,7 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
 
       <div className="mb-2">
         <Label>Unix Timestamp</Label>
-        <p className="text-xs text-slate-500">Paste your own timestamp to pause live mode and see a date.</p>
+  <p className="text-xs text-muted-foreground">Paste your own timestamp to pause live mode and see a date.</p>
   <Input value={displayTimestamp ?? ''} onFocus={onPause} onChange={(e: React.ChangeEvent<HTMLInputElement>) => convertTimestamp(e.target.value)} placeholder="Type a timestamp (ex. 1456249984)" />
       </div>
 
@@ -109,13 +109,13 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
       </div>
 
       <div className="flex items-center gap-2 mt-2">
-        {isPlaying ? (
-          <Button variant="ghost" onClick={onPause} className="text-black">Pause Live Mode</Button>
+          {isPlaying ? (
+          <Button variant="ghost" onClick={onPause}>Pause Live Mode</Button>
         ) : (
           <Button variant="default" onClick={onPlay}>Play Live Mode</Button>
         )}
 
-        <Button className="ml-auto" variant="destructive" onClick={() => { if (confirm('Are you sure you want to remove this converter?')) removeConverter(converter.id) }}>Delete</Button>
+  <Button className="ml-auto" variant="destructive" onClick={() => { if (confirm('Are you sure you want to remove this converter?')) removeConverter(converter.id) }}>Delete</Button>
       </div>
     </div>
   )

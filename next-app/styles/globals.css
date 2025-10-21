@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body { @apply bg-slate-50 text-slate-900; }
+/* Use the CSS variable-based background/text utilities below so
+  the theme provider (adds the `.dark` class) can switch colors.
+  Avoid forcing a specific light background here which would
+  override the variable-based classes. */
 .container { @apply max-w-5xl mx-auto px-4; }
 
 @layer base {
