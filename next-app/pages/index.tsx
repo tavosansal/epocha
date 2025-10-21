@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar'
 import UnixConverter from '../components/UnixConverter'
 import { useConverters } from '../context/ConvertersContext'
 import React from 'react'
+import WorldClockIcon from '../components/icons/WorldClockIcon'
 
 export default function Home() {
   const { converters, addConverter } = useConverters()
@@ -10,8 +11,8 @@ export default function Home() {
     <div>
       <Navbar />
       <main className="container py-6">
-        <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">Epocha <img src="/img/world-clock.png" className="h-10"/></h1>
-  <p className="mb-4 text-muted-foreground">Easy epoch to date converter</p>
+  {/* <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">Epocha <WorldClockIcon className="h-10 w-10"/></h1> */}
+  <h1 className="mb-4 text-muted-foreground">Easy epoch to date converter</h1>
 
         <div className="mb-4">
           <button className="px-3 py-1 border rounded border-border" onClick={addConverter}>+ Add New</button>

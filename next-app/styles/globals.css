@@ -115,3 +115,14 @@
     @apply border-border; }
   body {
     @apply bg-background text-foreground; } }
+
+/* Octocat icon: invert in light mode so it contrasts on light navbars; keep normal in dark mode. */
+.octocat {
+  filter: invert(1) grayscale(1) contrast(90%);
+}
+.dark .octocat {
+  filter: none;
+}
+
+/* World-clock logo: make it more visible in dark mode by reducing inversion and increasing brightness. */
+/* World-clock now uses an inline SVG; theme-aware coloring is handled via `currentColor` on the SVG. */
