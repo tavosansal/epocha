@@ -18,29 +18,43 @@ const STORAGE_KEY = 'epocha:converters'
 const ConvertersContext = createContext<ConvertersContextValue | undefined>(undefined)
 
 export function ConvertersProvider({ children }: { children: React.ReactNode }) {
+  // Start with an empty array for SSR safety. We'll hydrate from localStorage
+  // on the client and avoid writing back until hydration completes. This
+  // prevents the initial empty value from overwriting a stored value.
   const [converters, setConverters] = useState<Converter[]>([])
+  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
+    // run only on client
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
-      if (raw) setConverters(JSON.parse(raw))
-      else {
+      if (raw) {
+        setConverters(JSON.parse(raw) as Converter[])
+      } else {
         const seed: Converter[] = [{ id: Date.now(), label: '', timestamp: null, timezone: null }]
         setConverters(seed)
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(seed))
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(seed))
+        } catch (e) {
+          console.error('failed to persist seed converters', e)
+        }
       }
     } catch (e) {
-      console.error('failed to read converters', e)
+      console.error('failed to read converters on mount', e)
+    } finally {
+      setHydrated(true)
     }
   }, [])
 
+  // Persist changes only after hydration to avoid clobbering existing data
   useEffect(() => {
+    if (!hydrated) return
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(converters))
     } catch (e) {
       console.error('failed to save converters', e)
     }
-  }, [converters])
+  }, [converters, hydrated])
 
   const addConverter = () => {
     const c: Converter = { id: Date.now() + Math.random(), label: '', timestamp: null, timezone: null }
