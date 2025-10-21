@@ -79,7 +79,7 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
   }
 
   return (
-    <div className="bg-card shadow rounded p-4 mb-4">
+    <div className="bg-card shadow rounded p-4 h-full flex flex-col">
       <div className="mb-2">
         <Label>Label</Label>
   <Input value={converter.label || ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => saveLabel(e.target.value)} />
@@ -108,7 +108,7 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
         <Input readOnly value={isoString} />
       </div>
 
-      <div className="flex items-center gap-2 mt-2">
+  <div className="flex items-center gap-2 mt-2 mt-auto">
           {isPlaying ? (
           <Button variant="ghost" onClick={onPause}>Pause Live Mode</Button>
         ) : (

@@ -14,11 +14,10 @@ export default function Home() {
   {/* <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">Epocha <WorldClockIcon className="h-10 w-10"/></h1> */}
   <h1 className="mb-4 text-muted-foreground">Easy epoch to date converter</h1>
 
-        <div className="mb-4">
-          <button className="px-3 py-1 border rounded border-border" onClick={addConverter}>+ Add New</button>
-        </div>
-
-        <div>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+          <div className="bg-card shadow rounded p-4 h-full flex items-center justify-center">
+            <button className="px-3 py-1 border rounded border-border" onClick={addConverter}>+ Add New</button>
+          </div>
           {converters.map((c) => (
             <UnixConverter key={c.id} converter={c} />
           ))}
