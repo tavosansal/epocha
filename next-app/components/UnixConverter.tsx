@@ -13,6 +13,13 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
 
   const [isPlaying, setIsPlaying] = useState(true)
   const [pausedTime, setPausedTime] = useState<number | null>(converter.timestamp || null)
+  const [dateInput, setDateInput] = useState<string>('')
+  const [utcInput, setUtcInput] = useState<string>('')
+  const [isoInput, setIsoInput] = useState<string>('')
+  const [editingLocal, setEditingLocal] = useState(false)
+  const [editingUtc, setEditingUtc] = useState(false)
+  const [editingIso, setEditingIso] = useState(false)
+  const [invalid, setInvalid] = useState(false)
   const timezone = converter.timezone || guessed
 
   useEffect(() => {
@@ -25,22 +32,34 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
   const displayTimestamp = isPlaying ? currentTime : pausedTime
 
   const humanDate = useMemo(() => {
-    const ts = displayTimestamp
-    if (!ts) return ''
-    const m = moment.unix(ts).tz(timezone)
-    return m.format('YYYY-MM-DDTHH:mm:ss')
+  if (invalid) return 'invalid date'
+  const ts = displayTimestamp
+  if (!ts) return ''
+  const m = moment.unix(ts).tz(timezone)
+  return m.format('YYYY-MM-DDTHH:mm:ss')
   }, [displayTimestamp, timezone])
 
   const humanDateUtc = useMemo(() => {
-    const ts = displayTimestamp
-    if (!ts) return ''
-    return moment.unix(ts).utc().format('YYYY-MM-DDTHH:mm:ss')
+  if (invalid) return 'invalid date'
+  const ts = displayTimestamp
+  if (!ts) return ''
+  return moment.unix(ts).utc().format('YYYY-MM-DDTHH:mm:ss')
   }, [displayTimestamp])
 
   const isoString = useMemo(() => {
-    const ts = displayTimestamp
-    return ts ? new Date(ts * 1000).toISOString() : ''
+  if (invalid) return 'invalid date'
+  const ts = displayTimestamp
+  return ts ? new Date(ts * 1000).toISOString() : ''
   }, [displayTimestamp])
+
+  // sync input fields whenever the displayed timestamp changes and we're not actively editing
+  useEffect(() => {
+    if (!editingLocal) setDateInput(humanDate)
+    if (!editingUtc) setUtcInput(humanDateUtc)
+    if (!editingIso) setIsoInput(isoString)
+    if (displayTimestamp) setInvalid(false)
+  // intentionally include humanDate/humanDateUtc/isoString so inputs update when displayTimestamp updates
+  }, [humanDate, humanDateUtc, isoString, editingLocal, editingUtc, editingIso, displayTimestamp])
 
   const saveLabel = (label: string) => updateConverter(converter.id, { label })
   const onPause = () => {
@@ -64,14 +83,113 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
     }
   }
 
+  // Try to parse a user-provided value into a unix seconds timestamp.
+  // Supports:
+  // - plain integers (seconds or milliseconds)
+  // - ISO strings (assumed UTC when using isIso=true)
+  // - local or timezone-aware date strings parsed by moment
+  const parseToUnix = (value: string, tz?: string, isIso?: boolean): number | null => {
+    const v = (value || '').toString().trim()
+    if (!v) return null
+
+    // plain integer (seconds or ms)
+    if (/^-?\d+$/.test(v)) {
+      let n = parseInt(v, 10)
+      // if looks like milliseconds (13+ digits or large number), convert to seconds
+      if (Math.abs(n) > 1e11) {
+        n = Math.floor(n / 1000)
+      }
+      return n
+    }
+
+    let m
+    if (isIso) {
+      m = moment.utc(v)
+    } else if (tz) {
+      m = moment.tz(v, tz)
+    } else {
+      m = moment(v)
+    }
+
+    if (m && m.isValid()) return m.unix()
+    return null
+  }
+
   const convertDate = (value: string) => {
-    const m = moment(value).tz(timezone)
-    if (m && m.isValid()) {
-      const unix = m.unix()
+    const unix = parseToUnix(value, timezone, false)
+    if (unix !== null) {
       setPausedTime(unix)
       updateConverter(converter.id, { timestamp: unix })
       setIsPlaying(false)
     }
+  }
+
+  const convertIso = (value: string) => {
+    const unix = parseToUnix(value, undefined, true)
+    if (unix !== null) {
+      setPausedTime(unix)
+      updateConverter(converter.id, { timestamp: unix })
+      setIsPlaying(false)
+    }
+  }
+
+  // handlers for editable fields so user can type
+  const handleLocalChange = (value: string) => {
+    setDateInput(value)
+    const unix = parseToUnix(value, timezone, false)
+    if (unix !== null) {
+      setPausedTime(unix)
+      updateConverter(converter.id, { timestamp: unix })
+      setIsPlaying(false)
+      setInvalid(false)
+      setUtcInput(moment.unix(unix).utc().format('YYYY-MM-DDTHH:mm:ss'))
+      setIsoInput(new Date(unix * 1000).toISOString())
+    } else {
+      setPausedTime(null)
+      setIsPlaying(false)
+      setInvalid(true)
+    }
+  }
+
+  const handleUtcChange = (value: string) => {
+    setUtcInput(value)
+    const unix = parseToUnix(value, undefined, true)
+    if (unix !== null) {
+      setPausedTime(unix)
+      updateConverter(converter.id, { timestamp: unix })
+      setIsPlaying(false)
+      setInvalid(false)
+      setDateInput(moment.unix(unix).tz(timezone).format('YYYY-MM-DDTHH:mm:ss'))
+      setIsoInput(new Date(unix * 1000).toISOString())
+    } else {
+      setPausedTime(null)
+      setIsPlaying(false)
+      setInvalid(true)
+    }
+  }
+
+  const handleIsoChange = (value: string) => {
+    setIsoInput(value)
+    const unix = parseToUnix(value, undefined, true)
+    if (unix !== null) {
+      setPausedTime(unix)
+      updateConverter(converter.id, { timestamp: unix })
+      setIsPlaying(false)
+      setInvalid(false)
+      setDateInput(moment.unix(unix).tz(timezone).format('YYYY-MM-DDTHH:mm:ss'))
+      setUtcInput(moment.unix(unix).utc().format('YYYY-MM-DDTHH:mm:ss'))
+    } else {
+      setPausedTime(null)
+      setIsPlaying(false)
+      setInvalid(true)
+    }
+  }
+
+  const handlePasteAndConvert = (e: React.ClipboardEvent<HTMLInputElement>, parser: (v: string) => void) => {
+    const text = e.clipboardData.getData('text')
+    if (!text) return
+    e.preventDefault()
+    parser(text)
   }
 
   const timezoneChanged = (tz: string) => {
@@ -95,17 +213,37 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
         <Label>Date and Time ({timezone})</Label>
         <TimezoneSelect timezones={timezones} value={timezone} onChange={timezoneChanged} />
         <div className="h-2" />
-  <Input type="datetime-local" step="1" value={humanDate} onFocus={onPause} onChange={(e: React.ChangeEvent<HTMLInputElement>) => convertDate(e.target.value)} />
+  <Input
+    type="datetime-local"
+    step="1"
+    value={dateInput}
+    onFocus={() => { setEditingLocal(true); onPause() }}
+    onBlur={() => setEditingLocal(false)}
+    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleLocalChange(e.target.value)}
+    onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => handlePasteAndConvert(e, (v: string) => handleLocalChange(v))}
+  />
       </div>
 
       <div className="mb-2">
         <Label>Date and Time (UTC)</Label>
-        <Input readOnly value={humanDateUtc} />
+        <Input
+          value={utcInput}
+          onFocus={() => { setEditingUtc(true); onPause() }}
+          onBlur={() => setEditingUtc(false)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUtcChange(e.target.value)}
+          onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => handlePasteAndConvert(e, (v: string) => handleUtcChange(v))}
+        />
       </div>
 
       <div className="mb-2">
         <Label>ISO Date (UTC)</Label>
-        <Input readOnly value={isoString} />
+        <Input
+          value={isoInput}
+          onFocus={() => { setEditingIso(true); onPause() }}
+          onBlur={() => setEditingIso(false)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleIsoChange(e.target.value)}
+          onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => handlePasteAndConvert(e, (v: string) => handleIsoChange(v))}
+        />
       </div>
 
   <div className="flex items-center gap-2 mt-2 mt-auto">
