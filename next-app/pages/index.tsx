@@ -15,12 +15,12 @@ export default function Home() {
   <h1 className="mb-4 text-muted-foreground">Easy epoch to date converter</h1>
 
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-          <div className="bg-card shadow rounded p-4 h-full flex items-center justify-center">
-            <button className="px-3 py-1 border rounded border-border" onClick={addConverter}>+ Add New</button>
-          </div>
           {converters.map((c) => (
             <UnixConverter key={c.id} converter={c} />
           ))}
+          <div className="bg-card shadow rounded p-4 h-full flex items-center justify-center">
+            <button className="px-3 py-1 border rounded border-border" onClick={addConverter}>+ Add New</button>
+          </div>
         </div>
 
         <div className="mt-6 bg-card p-4 rounded shadow">
