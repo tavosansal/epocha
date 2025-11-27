@@ -7,20 +7,16 @@ type Props = {
   onChange: (tz: string) => void
 }
 
+// Plain, stable combobox: no Radix, no portals — simple input + filtered list.
 export default function TimezoneSelect({ timezones = [], value, onChange }: Props) {
   const [open, setOpen] = useState(false)
   const [filter, setFilter] = useState('')
-  const [highlight, setHighlight] = useState(0)
   const ref = useRef<HTMLDivElement | null>(null)
 
   const list = useMemo(() => {
     if (!filter) return timezones
     return timezones.filter((t) => t.toLowerCase().includes(filter.toLowerCase()))
   }, [timezones, filter])
-
-  useEffect(() => {
-    setHighlight(0)
-  }, [filter])
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
@@ -31,54 +27,52 @@ export default function TimezoneSelect({ timezones = [], value, onChange }: Prop
     return () => document.removeEventListener('click', onDoc)
   }, [])
 
-  const apply = (tz?: string) => {
-    setOpen(false)
-  setFilter(tz || '')
-    onChange(tz || '')
-  }
-
-  const onKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      setHighlight((h) => Math.min(h + 1, Math.max(0, list.length - 1)))
-      setOpen(true)
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      setHighlight((h) => Math.max(h - 1, 0))
-    } else if (e.key === 'Enter') {
-      e.preventDefault()
-      apply(list[highlight])
-    } else if (e.key === 'Escape') {
-      setOpen(false)
-    }
-  }
-
   return (
     <div ref={ref} className="relative">
-      <Input
-        placeholder={value || '(use guessed timezone)'}
-        value={filter}
-        onFocus={() => setOpen(true)}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setFilter(e.target.value); setOpen(true) }}
-        onKeyDown={onKey}
-        className="mb-2"
-      />
+      <div
+        className="flex items-center justify-between w-full rounded-md border px-3 py-2 bg-input text-sm cursor-pointer"
+        onClick={() => setOpen((o) => !o)}
+      >
+        <div className="truncate">{value || '(use guessed timezone)'}</div>
+        <svg
+          className={`ml-2 h-4 w-4 transition-transform ${open ? 'rotate-180' : ''}`}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path d="M6 9l6 6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
+
       {open && (
-        <div className="absolute z-10 mt-1 w-full max-h-48 overflow-auto rounded border bg-background shadow">
-          {list.length === 0 ? (
-            <div className="p-2 text-sm text-muted-foreground">No timezones</div>
-          ) : (
-            list.map((tz, i) => (
-              <div
-                key={tz}
-                className={`cursor-pointer px-3 py-2 text-sm ${i === highlight ? 'bg-accent/60' : ''}`}
-                onMouseEnter={() => setHighlight(i)}
-                onMouseDown={(e) => { e.preventDefault(); apply(tz) }}
-              >
-                {tz}
-              </div>
-            ))
-          )}
+        <div className="absolute z-10 mt-1 w-full max-h-64 overflow-hidden rounded border bg-background shadow">
+          <div className="p-2">
+            <Input
+              placeholder="Filter timezones"
+              value={filter}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}
+            />
+          </div>
+          <div className="max-h-48 overflow-auto">
+            {list.length === 0 ? (
+              <div className="p-2 text-sm text-muted-foreground">No timezones</div>
+            ) : (
+              list.map((tz) => (
+                <div
+                  key={tz}
+                  className="cursor-pointer px-3 py-2 text-sm hover:bg-accent/10"
+                  onMouseDown={(e) => {
+                    e.preventDefault()
+                    onChange(tz)
+                    setOpen(false)
+                    setFilter(tz)
+                  }}
+                >
+                  {tz}
+                </div>
+              ))
+            )}
+          </div>
         </div>
       )}
     </div>

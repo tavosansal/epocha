@@ -4,6 +4,7 @@ import TimezoneSelect from './TimezoneSelect'
 import useCurrentTime from '../hooks/useCurrentTime'
 import { useConverters, Converter } from '../context/ConvertersContext'
 import { Button } from '@/components/ui/Button'
+import { Play, Pause } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import Label from '@/components/ui/Label'
 
@@ -248,9 +249,9 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
 
   <div className="flex items-center gap-2 mt-2 mt-auto">
           {isPlaying ? (
-          <Button variant="ghost" onClick={onPause}>Pause Live Mode</Button>
+          <Button variant="default" className="bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl transform transition" onClick={onPause}><Pause className="mr-2 h-4 w-4 text-white" />Pause Live Mode</Button>
         ) : (
-          <Button variant="default" onClick={onPlay}>Play Live Mode</Button>
+          <Button variant="default" className="bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl transform transition" onClick={onPlay}><Play className="mr-2 h-4 w-4 text-white" />Play Live Mode</Button>
         )}
 
   <Button className="ml-auto" variant="destructive" onClick={() => { if (confirm('Are you sure you want to remove this converter?')) removeConverter(converter.id) }}>Delete</Button>
