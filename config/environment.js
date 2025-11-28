@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'epocha',
     environment,
@@ -13,14 +13,14 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
   };
 
   if (process.env.EMBER_CLI_ELECTRON) {
@@ -56,9 +56,8 @@ module.exports = function(environment) {
     // 'all' - all years, all timezones
     // '2010-2020' - 2010-2020, all timezones
     // 'none' - no data, just timezone API
-    includeTimezone: 'all'
-  }
-
+    includeTimezone: 'all',
+  };
 
   // config/environment.js
   ENV.contentSecurityPolicy = {
@@ -68,8 +67,8 @@ module.exports = function(environment) {
     'connect-src': "'self' https://api.mixpanel.com http://custom-api.local", // Allow data (ajax/websocket) from api.mixpanel.com and custom-api.local
     'img-src': "'self'",
     'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
-    'media-src': "'self'"
-  }
+    'media-src': "'self'",
+  };
 
   return ENV;
 };

@@ -1,13 +1,13 @@
 /* jshint node: true */
 'use strict';
 
-const electron             = require('electron');
-const path                 = require('path');
-const app                  = electron.app;
-const BrowserWindow        = electron.BrowserWindow;
-const dirname              = __dirname || path.resolve(path.dirname());
-const emberAppLocation     = `file://${dirname}/dist/index.html`;
-const menubar              = require('menubar');
+const electron = require('electron');
+const path = require('path');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const dirname = __dirname || path.resolve(path.dirname());
+const emberAppLocation = `file://${dirname}/dist/index.html`;
+const menubar = require('menubar');
 
 let mainWindow = null;
 
@@ -21,14 +21,13 @@ let mainWindow = null;
 //     autoSubmit: true
 // });
 
-
 const mb = menubar({
-    index: emberAppLocation,
-    height: 450,
-    preloadWindow: true,
-    transparent: false,
-    tooltip: 'Epocha',
-    resizable: false,
+  index: emberAppLocation,
+  height: 450,
+  preloadWindow: true,
+  transparent: false,
+  tooltip: 'Epocha',
+  resizable: false,
 });
 
 app.on('window-all-closed', function onWindowAllClosed() {
@@ -36,15 +35,14 @@ app.on('window-all-closed', function onWindowAllClosed() {
 });
 
 mb.on('ready', function onReady() {
-    // If you want to open up dev tools programmatically, call
-    // mb.window.openDevTools()
-
-    // By default, we'll open the Ember App by directly going to the
-    // file system.
-    //
-    // Please ensure that you have set the locationType option in the
-    // config/environment.js file to 'hash'. For more information,
-    // please consult the ember-electron readme.
+  // If you want to open up dev tools programmatically, call
+  // mb.window.openDevTools()
+  // By default, we'll open the Ember App by directly going to the
+  // file system.
+  //
+  // Please ensure that you have set the locationType option in the
+  // config/environment.js file to 'hash'. For more information,
+  // please consult the ember-electron readme.
 });
 
 // app.on('ready', function onReady() {
