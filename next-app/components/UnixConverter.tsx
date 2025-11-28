@@ -39,20 +39,20 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
     if (!ts) return '';
     const m = moment.unix(ts).tz(timezone);
     return m.format('YYYY-MM-DDTHH:mm:ss');
-  }, [displayTimestamp, timezone]);
+  }, [displayTimestamp, timezone, invalid]);
 
   const humanDateUtc = useMemo(() => {
     if (invalid) return 'invalid date';
     const ts = displayTimestamp;
     if (!ts) return '';
     return moment.unix(ts).utc().format('YYYY-MM-DDTHH:mm:ss');
-  }, [displayTimestamp]);
+  }, [displayTimestamp, invalid]);
 
   const isoString = useMemo(() => {
     if (invalid) return 'invalid date';
     const ts = displayTimestamp;
     return ts ? new Date(ts * 1000).toISOString() : '';
-  }, [displayTimestamp]);
+  }, [displayTimestamp, invalid]);
 
   // sync input fields whenever the displayed timestamp changes and we're not actively editing
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
   // - plain integers (seconds or milliseconds)
   // - ISO strings (assumed UTC when using isIso=true)
   // - local or timezone-aware date strings parsed by moment
-  const parseToUnix = (value: string, tz?: string, isIso?: boolean): number | null => {
+  const parseToUnix = (value: string, _tz?: string, isIso?: boolean): number | null => {
     const v = (value || '').toString().trim();
     if (!v) return null;
 
@@ -107,8 +107,8 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
     let m;
     if (isIso) {
       m = moment.utc(v);
-    } else if (tz) {
-      m = moment.tz(v, tz);
+    } else if (_tz) {
+      m = moment.tz(v, _tz);
     } else {
       m = moment(v);
     }
@@ -171,7 +171,7 @@ export default function UnixConverter({ converter }: { converter: Converter }) {
     }
   };
 
-  const handlePasteAndConvert = (e: ClipboardEvent<HTMLInputElement>, parser: (v: string) => void) => {
+  const handlePasteAndConvert = (e: ClipboardEvent<HTMLInputElement>, parser: (v_: string) => void) => {
     const text = e.clipboardData.getData('text');
     if (!text) return;
     e.preventDefault();

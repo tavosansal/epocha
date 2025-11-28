@@ -9,7 +9,7 @@ export default function TimezoneSelect({
 }: {
   timezones?: any[];
   value?: any;
-  onChange: (tz: any) => void;
+  onChange: (tz_: any) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState('');
