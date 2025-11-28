@@ -1,11 +1,10 @@
-import Navbar from '../components/Navbar'
-import { useConverters } from '../context/ConvertersContext'
-import UnixConverter from '../components/UnixConverter'
-import React from 'react'
+import Navbar from '../components/Navbar';
+import { useConverters } from '../context/ConvertersContext';
+import UnixConverter from '../components/UnixConverter';
 
 export default function Single() {
-  const { converters } = useConverters()
-  const first = converters[0]
+  const { converters } = useConverters();
+  const first = converters[0];
 
   return (
     <div>
@@ -15,5 +14,5 @@ export default function Single() {
         {first ? <UnixConverter converter={first} /> : <p>No converter found</p>}
       </main>
     </div>
-  )
+  );
 }

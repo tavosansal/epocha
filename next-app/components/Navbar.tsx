@@ -1,7 +1,6 @@
-import Link from 'next/link'
-import React from 'react'
-import ThemeToggle from './ThemeToggle'
-import WorldClockIcon from './icons/WorldClockIcon'
+import Link from 'next/link';
+import ThemeToggle from './ThemeToggle';
+import WorldClockIcon from './icons/WorldClockIcon';
 
 export default function Navbar() {
   return (
@@ -9,7 +8,9 @@ export default function Navbar() {
       <div className="container flex items-center justify-between py-3">
         <div className="flex items-center gap-3">
           <WorldClockIcon className="h-8 w-8 logo" />
-          <Link href="/" className="font-semibold text-lg">Epocha</Link>
+          <Link href="/" className="font-semibold text-lg">
+            Epocha
+          </Link>
         </div>
         <div className="flex items-center gap-4">
           <Link href="/about">About</Link>
@@ -20,5 +21,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }

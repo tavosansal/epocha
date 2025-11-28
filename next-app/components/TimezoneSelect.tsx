@@ -1,31 +1,34 @@
-import React, { useMemo, useState, useRef, useEffect } from 'react'
-import { Input } from './ui/Input'
-
-type Props = {
-  timezones?: string[]
-  value?: string | null
-  onChange: (tz: string) => void
-}
+import { useMemo, useState, useRef, useEffect } from 'react';
+import { Input } from './ui/Input';
 
 // Plain, stable combobox: no Radix, no portals — simple input + filtered list.
-export default function TimezoneSelect({ timezones = [], value, onChange }: Props) {
-  const [open, setOpen] = useState(false)
-  const [filter, setFilter] = useState('')
-  const ref = useRef<HTMLDivElement | null>(null)
+export default function TimezoneSelect({
+  timezones = [],
+  value,
+  onChange,
+}: {
+  timezones?: any[];
+  value?: any;
+  onChange: (tz: any) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [filter, setFilter] = useState('');
+  const ref = useRef<any>(null);
 
   const list = useMemo(() => {
-    if (!filter) return timezones
-    return timezones.filter((t) => t.toLowerCase().includes(filter.toLowerCase()))
-  }, [timezones, filter])
+    if (!filter) return timezones;
+    return timezones.filter((t) => t.toLowerCase().includes(filter.toLowerCase()));
+  }, [timezones, filter]);
 
   useEffect(() => {
-    const onDoc = (e: MouseEvent) => {
-      if (!ref.current) return
-      if (!ref.current.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('click', onDoc)
-    return () => document.removeEventListener('click', onDoc)
-  }, [])
+    const onDoc = (e: any) => {
+      if (!ref.current) return;
+      // plain check without TypeScript 'as' casts so ESLint/parser doesn't choke
+      if (!ref.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener('click', onDoc);
+    return () => document.removeEventListener('click', onDoc);
+  }, []);
 
   return (
     <div ref={ref} className="relative">
@@ -47,11 +50,7 @@ export default function TimezoneSelect({ timezones = [], value, onChange }: Prop
       {open && (
         <div className="absolute z-10 mt-1 w-full max-h-64 overflow-hidden rounded border bg-background shadow">
           <div className="p-2">
-            <Input
-              placeholder="Filter timezones"
-              value={filter}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}
-            />
+            <Input placeholder="Filter timezones" value={filter} onChange={(e) => setFilter(e.target.value)} />
           </div>
           <div className="max-h-48 overflow-auto">
             {list.length === 0 ? (
@@ -62,10 +61,10 @@ export default function TimezoneSelect({ timezones = [], value, onChange }: Prop
                   key={tz}
                   className="cursor-pointer px-3 py-2 text-sm hover:bg-accent/10"
                   onMouseDown={(e) => {
-                    e.preventDefault()
-                    onChange(tz)
-                    setOpen(false)
-                    setFilter(tz)
+                    e.preventDefault();
+                    onChange(tz);
+                    setOpen(false);
+                    setFilter(tz);
                   }}
                 >
                   {tz}
@@ -76,5 +75,5 @@ export default function TimezoneSelect({ timezones = [], value, onChange }: Prop
         </div>
       )}
     </div>
-  )
+  );
 }
