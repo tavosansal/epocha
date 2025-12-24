@@ -4,6 +4,11 @@ tsconfig.tsbuildinfo
 .DS_Store
 .env.local
 
+# Amplify Gen 2
+amplify/data/resource.ts
+.amplify/
+amplify_outputs.json
+
 # Ignore JS/JSX files generated alongside TS/TSX sources during dev
 # Keep config files (next.config.js, postcss.config.js) tracked
 components/**/*.js

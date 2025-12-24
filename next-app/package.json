@@ -24,6 +24,8 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@aws-amplify/backend": "^1.0.0",
+    "@aws-amplify/backend-cli": "^1.0.0",
     "@next/eslint-plugin-next": "^16.0.5",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
